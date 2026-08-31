@@ -1,7 +1,7 @@
+import { animations } from "@/assets";
 import { Animation } from "@/components/ui/animation";
 import type { LottieViewProps } from "lottie-react-native";
 import { View } from "react-native";
-import loadingAnimation from "../../init.json";
 
 type LoadingScreenProps = Pick<LottieViewProps, "onAnimationFinish">;
 
@@ -9,7 +9,7 @@ export function LoadingScreen({ onAnimationFinish }: LoadingScreenProps = {}) {
   return (
     <View className="flex-1 items-center justify-center bg-background">
       <Animation
-        source={loadingAnimation}
+        source={animations.init}
         style={{
           width: 500,
           maxWidth: 500,
