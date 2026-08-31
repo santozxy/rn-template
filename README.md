@@ -14,7 +14,7 @@ Template Expo SDK 56 baseado na infraestrutura do `react-native-template`, com a
 - Tema claro/escuro, toasts, formulários, máscaras e componentes responsivos.
 - Animação Lottie de inicialização enquanto fontes e cache offline são preparados.
 - Providers de autenticação, rede, upload, safe area, gestos, teclado e bottom sheets.
-- Deep links e abertura de rotas por notificações.
+- Deep links e suporte opcional à abertura de rotas por notificações.
 
 ## Executando com o nest-template
 
@@ -46,6 +46,8 @@ A API usa `http://localhost:3333/api` por padrão. O usuário administrador do s
 - Senha: `password`
 
 Defina `EXPO_PUBLIC_MODE` como `dev`, `demo` ou `prod`. O `getUrlConfig` seleciona respectivamente `EXPO_PUBLIC_API_DEV_BASE_URL`, `EXPO_PUBLIC_API_DEMO_BASE_URL` ou `EXPO_PUBLIC_API_PROD_BASE_URL`.
+
+Push notifications ficam desativadas por padrão para que o template compile com um provisioning profile comum. Para ativá-las no iOS, configure um App ID explícito com a capability **Push Notifications** no Apple Developer, adicione novamente o plugin `expo-notifications` ao `app.json` e defina `EXPO_PUBLIC_ENABLE_PUSH_NOTIFICATIONS=true`. O prebuild criará o entitlement `aps-environment`; não o adicione manualmente antes de o profile aceitar a capability.
 
 Use `http://localhost:3333/api` no iOS Simulator, `http://10.0.2.2:3333/api` no Android Emulator ou o IP da máquina em um dispositivo físico.
 
@@ -121,4 +123,5 @@ bun run check
 ```
 
 O projeto possui módulos nativos e deve ser executado em development build. O Expo Go não contém todas as dependências necessárias.
+
 # rn-template

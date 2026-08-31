@@ -1,12 +1,60 @@
 {
   "name": "rn-template",
   "version": "1.0.0",
+  "packageManager": "bun@1.3.14",
   "main": "index.js",
+  "overrides": {
+    "expo-constants": "56.0.25"
+  },
   "dependencies": {
+    "@expo-google-fonts/plus-jakarta-sans": "^0.4.2",
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@react-navigation/bottom-tabs": "^7.18.18",
+    "@react-navigation/native": "^7.3.18",
+    "@react-navigation/native-stack": "^7.18.10",
+    "@tanstack/query-async-storage-persister": "^5.102.8",
+    "@tanstack/react-query": "^5.102.8",
+    "@tanstack/react-query-persist-client": "^5.102.8",
+    "axios": "^1.20.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "date-fns-tz": "^3.2.0",
     "expo": "~56.0.21",
+    "expo-clipboard": "~56.0.4",
+    "expo-constants": "56.0.25",
+    "expo-crypto": "~56.0.5",
+    "expo-device": "~56.0.4",
+    "expo-document-picker": "~56.0.4",
+    "expo-file-system": "~56.0.11",
+    "expo-font": "~56.0.7",
+    "expo-image": "~56.0.12",
+    "expo-image-picker": "~56.0.25",
+    "expo-linking": "~56.0.17",
+    "expo-local-authentication": "~56.0.5",
+    "expo-network": "~56.0.5",
+    "expo-notifications": "~56.0.25",
+    "expo-secure-store": "~56.0.4",
     "expo-status-bar": "~56.0.4",
+    "expo-system-ui": "~56.0.5",
+    "lottie-react-native": "~7.3.4",
+    "lucide-react-native": "^1.34.0",
+    "nativewind": "^4.2.6",
     "react": "19.2.3",
-    "react-native": "0.85.3"
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.86.0",
+    "react-native": "0.85.3",
+    "react-native-gesture-handler": "~2.31.1",
+    "react-native-keyboard-controller": "1.21.6",
+    "react-native-mask-input": "^1.2.3",
+    "react-native-mmkv": "^4.3.2",
+    "react-native-nitro-modules": "^0.37.1",
+    "react-native-reanimated": "4.3.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-toast-message": "^2.4.0",
+    "react-native-worklets": "0.8.3",
+    "reanimated-color-picker": "^5.1.2"
   },
   "publishConfig": {
     "executableFiles": [
@@ -15,9 +63,47 @@
   },
   "scripts": {
     "start": "expo start --dev-client",
+    "start:clear": "expo start --dev-client --clear",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit --incremental false",
+    "lint": "expo lint",
+    "lint:fix": "expo lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dependencies:check": "expo install --check",
+    "doctor": "bunx expo-doctor",
+    "check": "bun run typecheck && bun run lint && bun run format:check && bun run dependencies:check",
+    "reinstall": "bun install --force --frozen-lockfile",
+    "reinstall:ios": "bun run reinstall && bun run ios:pods:clean",
+    "android:clean": "cd android && ./gradlew clean",
+    "android:release": "bun run check && cd android && ./gradlew assembleRelease",
+    "android:bundle": "bun run check && cd android && ./gradlew bundleRelease",
+    "ios:pods": "cd ios && pod install",
+    "ios:pods:repo-update": "cd ios && pod install --repo-update",
+    "ios:pods:clean": "cd ios && pod deintegrate && pod install",
+    "ios:clean": "xcodebuild -workspace ios/rntemplate.xcworkspace -scheme rntemplate clean"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "doctor": {
+      "appConfigFieldsNotSyncedCheck": {
+        "enabled": false
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.14",
+    "babel-preset-expo": "~56.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~56.0.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^16.0.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~6.0.3"
+  }
 }

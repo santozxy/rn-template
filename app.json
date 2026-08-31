@@ -2,6 +2,39 @@
   "expo": {
     "name": "rn-template",
     "slug": "rn-template",
-    "version": "1.0.0"
+    "scheme": "rn-template",
+    "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-status-bar",
+      "expo-image",
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permita que o aplicativo use o Face ID para autenticação."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permita que o aplicativo acesse suas fotos.",
+          "cameraPermission": "Permita que o aplicativo use a câmera.",
+          "microphonePermission": false
+        }
+      ],
+      "expo-font"
+    ],
+    "ios": {
+      "appleTeamId": "6HF3KSHCU4",
+      "bundleIdentifier": "com.syslae.rntemplate"
+    },
+    "android": {
+      "package": "com.syslae.rntemplate",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
+    }
   }
 }
