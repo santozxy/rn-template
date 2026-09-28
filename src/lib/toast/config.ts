@@ -1,23 +1,9 @@
-import {
-  BaseToast,
-  ErrorToast,
-  InfoToast,
-  ToastConfig,
-} from "react-native-toast-message";
+import type { ToastConfig } from "react-native-toast-message";
 import { createToast } from "./custom";
 
 export const toastConfig: ToastConfig = {
-  success: createToast(
-    { textColor: "success", borderColor: "success" },
-    BaseToast,
-  ),
-  error: createToast(
-    { textColor: "destructive", borderColor: "destructive" },
-    ErrorToast,
-  ),
-  info: createToast({ textColor: "info", borderColor: "info" }, InfoToast),
-  warning: createToast(
-    { textColor: "warning", borderColor: "warning" },
-    BaseToast,
-  ),
+  success: createToast("success"),
+  error: createToast("error"),
+  info: createToast("info"),
+  warning: createToast("warning"),
 };

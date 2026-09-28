@@ -1,7 +1,8 @@
 import { Icon, type IconName } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import React from "react";
-import { ActivityIndicator, Modal, View } from "react-native";
+import { ActivityIndicator, Modal } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ModalLoadingModalProps {
   title: string;

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import type { ApiResponsePaginated } from "@/api/types";
 import { ListPaginated } from "@/components/list/list-paginated";
 import { Icon } from "@/components/ui/icon";
@@ -16,7 +17,7 @@ import {
   UseControllerProps,
   useFormContext,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 /**
  * Estrutura base de uma opção do select.
@@ -346,7 +347,9 @@ export function ControlledPaginatedSelect<
             {rules?.required && <Text className="text-destructive"> *</Text>}
           </Text>
 
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             className={`flex-row items-center justify-between rounded-xl border p-3 ${
               disabled ? "bg-input-disabled" : "bg-input"
             } ${error ? "border-destructive" : "border-border"}`}
@@ -366,7 +369,7 @@ export function ControlledPaginatedSelect<
             )}
 
             <Icon name="chevron-down" size={16} className="color-primary" />
-          </TouchableOpacity>
+          </Button>
 
           {error?.message && (
             <Text className="text-sm text-destructive">{error.message}</Text>
@@ -437,7 +440,9 @@ function SelectItem<TOption>({
   getOptionLabel: (option: TOption) => string;
 }) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       onPress={onPress}
       className={`flex-row items-center justify-between  rounded-2xl border bg-secondary p-3 ${
         isSelected ? "border-primary" : "border-border"
@@ -456,7 +461,7 @@ function SelectItem<TOption>({
       ) : (
         <Icon name="circle" size={18} className="color-border" />
       )}
-    </TouchableOpacity>
+    </Button>
   );
 }
 

@@ -1,10 +1,11 @@
+import { Button } from "@/components/ui/button";
 // src/components/ui/search.tsx
 import { Icon } from "@/components/ui/icon";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useTheme } from "@/hooks/use-theme";
 import React, { useEffect, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
 import MaskInput from "react-native-mask-input";
+import { View } from "@/components/ui/view";
 
 interface SearchProps extends React.ComponentProps<typeof MaskInput> {
   value: string;
@@ -88,12 +89,14 @@ export function Search({
       </View>
 
       {internalValue.length > 0 && !loading && (
-        <TouchableOpacity
+        <Button
+          variant="unstyled"
+          size="content"
           hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
           onPress={handleClear}
         >
           <Icon name="x" size={20} color={colors.destructive} />
-        </TouchableOpacity>
+        </Button>
       )}
     </View>
   );

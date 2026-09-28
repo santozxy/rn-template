@@ -1,9 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/lib/toast";
 import * as Clipboard from "expo-clipboard";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface RenderRowProps {
   label?: string;
@@ -48,7 +49,9 @@ export function Row({
       {isLoading ? (
         <Skeleton width={120} height={14} />
       ) : (
-        <TouchableOpacity
+        <Button
+          variant="unstyled"
+          size="content"
           activeOpacity={0.8}
           disabled={!value || value === "N/A" || !variant}
           onPress={handleCopy}
@@ -59,7 +62,7 @@ export function Row({
           >
             {textValue}
           </Text>
-        </TouchableOpacity>
+        </Button>
       )}
     </View>
   );

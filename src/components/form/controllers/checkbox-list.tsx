@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import {
@@ -5,7 +6,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface CheckboxOption {
   name: string;
@@ -40,7 +41,9 @@ export function ControlledCheckboxList<FormType extends FieldValues>({
           )}
           <View className="flex-row items-center gap-4">
             {options.map((option) => (
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 key={option.id}
                 onPress={() => {
                   if (value === option.id) {
@@ -64,7 +67,7 @@ export function ControlledCheckboxList<FormType extends FieldValues>({
                   <View className="mr-2 h-6 w-6 items-center justify-center rounded-md border border-border bg-input" />
                 )}
                 <Text className="text-foreground">{option.name}</Text>
-              </TouchableOpacity>
+              </Button>
             ))}
           </View>
           {error?.message && (

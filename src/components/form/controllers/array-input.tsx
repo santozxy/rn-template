@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
@@ -7,7 +8,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledArrayInputProps {
   label?: string;
@@ -71,7 +72,9 @@ export function ControlledArrayInput<FormType extends FieldValues>({
             {Array.isArray(value) && value.length > 0 && (
               <View className="mt-3 flex-row flex-wrap gap-2">
                 {value.map((item: string, index: number) => (
-                  <TouchableOpacity
+                  <Button
+                    variant="unstyled"
+                    size="content"
                     onPress={() =>
                       onChange(value.filter((_, i) => i !== index))
                     }
@@ -80,7 +83,7 @@ export function ControlledArrayInput<FormType extends FieldValues>({
                   >
                     <Text className="mr-2 text-foreground">{item}</Text>
                     <Icon name="x" size={14} className="text-destructive" />
-                  </TouchableOpacity>
+                  </Button>
                 ))}
               </View>
             )}

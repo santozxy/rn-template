@@ -19,34 +19,47 @@ interface InstanceMetadata {
 type ApiInstance = AxiosInstance & InstanceMetadata;
 type RetryableRequest = InternalAxiosRequestConfig & { sent?: boolean };
 
-// function isAdaptableData(data: unknown) {
-//   if (Array.isArray(data)) return true;
-//   if (!data || typeof data !== "object") return false;
-//   return Object.getPrototypeOf(data) === Object.prototype;
-// }
-
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
   "x-requested": "Syslae",
 };
 
-export function getUrlConfig() {
-  switch (process.env.EXPO_PUBLIC_MODE) {
-    case "prod":
-      return process.env.EXPO_PUBLIC_API_PROD_BASE_URL;
-    case "dev":
-      return process.env.EXPO_PUBLIC_API_DEV_BASE_URL;
-    case "demo":
+export function getUrlConfig(): string {
+  const mode = process.env.EXPO_PUBLIC_MODE;
+
+  switch (mode) {
+    case "prod": {
+      const url = process.env.EXPO_PUBLIC_API_PROD_BASE_URL;
+
+      if (!url) {
+        throw new Error("EXPO_PUBLIC_API_PROD_BASE_URL não configurada");
+      }
+      return url;
+    }
+    case "dev": {
+      const url = process.env.EXPO_PUBLIC_API_DEV_BASE_URL;
+      if (!url) {
+        throw new Error("EXPO_PUBLIC_API_DEV_BASE_URL não configurada");
+      }
+      return url;
+    }
+    case "demo": {
+      const url = process.env.EXPO_PUBLIC_API_DEMO_BASE_URL;
+
+      if (!url) {
+        throw new Error("EXPO_PUBLIC_API_DEMO_BASE_URL não configurada");
+      }
+
+      return url;
+    }
     default:
-      return process.env.EXPO_PUBLIC_API_DEMO_BASE_URL;
+      throw new Error(`EXPO_PUBLIC_MODE inválido ou ausente: ${mode}`);
   }
 }
 
-const configuredBaseUrl = getUrlConfig()?.replace(/\/+$/, "") ?? "";
-
 export const activeConfig: Config = {
-  baseURL: configuredBaseUrl,
+  baseURL: getUrlConfig(),
 };
 
 export const currentBaseUrl = activeConfig.baseURL;
@@ -72,13 +85,11 @@ function createApiInstance(config: Config): ApiInstance {
         request,
       );
     }
-    // Para projetos que usam snake_case no backend, descomente o trecho abaixo para converter a requisição para snake_case
     // if (isAdaptableData(request.data)) {
     //   request.data = adapter("toSnake", request.data);
     // }
     return request;
   });
-  // Para projetos que usam snake_case no backend, descomente o trecho abaixo para converter a resposta para camelCase
   // instance.interceptors.response.use((response) => {
   //   response.data = adapter("toCamel", response.data);
   //   return response;

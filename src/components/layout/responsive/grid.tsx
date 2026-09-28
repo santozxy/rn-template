@@ -1,7 +1,8 @@
 import { useAdaptiveColumns } from "@/hooks/use-adaptive-columns";
 import { responsiveTokens } from "@/theme/responsive";
 import React from "react";
-import { View, type ViewProps } from "react-native";
+import type { ViewProps } from "react-native";
+import { View } from "@/components/ui/view";
 
 export interface ResponsiveGridProps extends Omit<ViewProps, "children"> {
   children: React.ReactNode;

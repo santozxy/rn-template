@@ -5,7 +5,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledInputProps {
   label: string;

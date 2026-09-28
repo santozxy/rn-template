@@ -1,9 +1,10 @@
 // src/components/ui/mask-input.tsx
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { useTheme } from "@/hooks/use-theme";
 import React, { useState } from "react";
-import { Pressable, View } from "react-native";
 import MaskInputLib from "react-native-mask-input";
+import { View } from "@/components/ui/view";
 
 export interface MaskInputProps extends React.ComponentProps<
   typeof MaskInputLib
@@ -67,7 +68,10 @@ export function MaskInput({
       )}
 
       {secureTextEntry && (
-        <Pressable
+        <Button
+          variant="unstyled"
+          size="content"
+          accessibilityLabel={showPassword ? "Ocultar senha" : "Mostrar senha"}
           className="absolute right-3 top-3.5 z-10"
           onPress={() => setShowPassword((prev) => !prev)}
         >
@@ -76,7 +80,7 @@ export function MaskInput({
             size={20}
             className="color-description"
           />
-        </Pressable>
+        </Button>
       )}
     </View>
   );

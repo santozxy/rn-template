@@ -1,6 +1,8 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { MaskInput } from "@/components/ui/mask-input";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { useTheme } from "@/hooks/use-theme";
 import React from "react";
 import {
@@ -10,12 +12,7 @@ import {
   useController,
   useFormContext,
 } from "react-hook-form";
-import {
-  ActivityIndicator,
-  TouchableOpacity,
-  View,
-  ViewProps,
-} from "react-native";
+import { ActivityIndicator, ViewProps } from "react-native";
 import { Mask } from "react-native-mask-input";
 
 export interface ControlledSearchInputProps<T extends FieldValues> extends Omit<
@@ -106,7 +103,9 @@ export function ControlledSearchInput<T extends FieldValues>({
           onChange(newValue);
         }}
         rightComponent={
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             className="h-full w-12 items-center justify-center rounded-r-2xl"
             disabled={disabled || load}
             onPress={onSearch}
@@ -121,7 +120,7 @@ export function ControlledSearchInput<T extends FieldValues>({
                 color={disabled ? colors.description : colors.foreground}
               />
             )}
-          </TouchableOpacity>
+          </Button>
         }
       />
 

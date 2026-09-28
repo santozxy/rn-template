@@ -49,6 +49,11 @@ export const buttonVariantStyles = {
     text: "text-background",
     loading: "color-foreground",
   },
+  unstyled: {
+    container: "",
+    text: "text-foreground",
+    loading: "color-primary",
+  },
 } as const;
 
 export const buttonSizeStyles = {
@@ -66,6 +71,11 @@ export const buttonSizeStyles = {
     container: "h-14 px-6",
     content: "gap-2",
     text: "text-lg",
+  },
+  content: {
+    container: "",
+    content: "",
+    text: "",
   },
 } as const;
 

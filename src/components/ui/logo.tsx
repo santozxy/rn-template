@@ -1,7 +1,7 @@
 import { useTheme } from "@/hooks/use-theme";
 import { ShieldCheck } from "lucide-react-native";
-import { View } from "react-native";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 interface LogoProps {
   compact?: boolean;

@@ -1,7 +1,7 @@
 import { ScrollableScreen } from "@/components/layout/screens/scrollable";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import React from "react";
-import { View } from "react-native";
 import {
   type PolicyBlock,
   type PolicySection,

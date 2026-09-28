@@ -1,8 +1,8 @@
 import { isDemo, isLocal } from "@/api/config";
 import { resolveTopInset } from "@/providers/screen-safe-area-provider";
-import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "../ui/text";
+import { View } from "@/components/ui/view";
 
 interface ModeBannerProps {
   message?: string;

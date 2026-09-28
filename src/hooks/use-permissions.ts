@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 export function usePermissions() {
   const { auth } = useAuth();
   const permissions = useMemo(
-    () => (auth?.user.role === "admin" ? ["*"] : []),
+    () => (auth?.user.role === "ADMIN" ? ["*"] : []),
     [auth?.user.role],
   );
 

@@ -1,8 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface HeaderProps<T extends string> {
   title: string;
@@ -28,7 +29,9 @@ export function Header<T extends string>({
     <View className="flex-col">
       <View className="z-50 h-20 flex-row items-center justify-between bg-primary px-4">
         <View className="flex-1 flex-row items-center">
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             onPress={() => navigation.goBack()}
             className="flex-1 flex-row items-center gap-3"
           >
@@ -43,14 +46,16 @@ export function Header<T extends string>({
             >
               {title}
             </Text>
-          </TouchableOpacity>
+          </Button>
         </View>
         {rightComponent}
       </View>
 
       <View className="flex-row items-center gap-2 bg-primary">
         {routes?.map((route) => (
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             key={route.key}
             onPress={() => setActiveTab(route.key)}
             className={`flex-1 border-b-2 px-3 pb-3 ${
@@ -68,7 +73,7 @@ export function Header<T extends string>({
             >
               {route.titleKey}
             </Text>
-          </TouchableOpacity>
+          </Button>
         ))}
       </View>
     </View>

@@ -1,8 +1,8 @@
 import { MainHeader } from "@/components/layout/main-header";
 import { ScrollableScreen } from "@/components/layout/screens/scrollable";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { Layers3, Route, Users } from "lucide-react-native";
-import { View } from "react-native";
 import { FeatureCard } from "./components/feature-card";
 
 const features = [
@@ -25,7 +25,14 @@ const features = [
 
 export function Home() {
   return (
-    <ScrollableScreen header={<MainHeader />}>
+    <ScrollableScreen
+      header={
+        <MainHeader
+          title="Meu template"
+          description="Exemplo base para novos projetos."
+        />
+      }
+    >
       <View className="gap-2">
         <Text className="font-bold text-3xl" selectable>
           Template pronto para evoluir

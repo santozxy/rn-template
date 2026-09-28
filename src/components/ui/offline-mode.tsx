@@ -1,7 +1,7 @@
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import React, { useEffect } from "react";
-import { useWindowDimensions, View } from "react-native";
+import { useWindowDimensions } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -12,6 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useTheme } from "@/hooks/use-theme";
 import type { NetworkStatus } from "@/lib/network/offline";
+import { View } from "@/components/ui/view";
 
 interface OfflineTransitionProps {
   visible: boolean;

@@ -1,13 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import React, { useRef, useState } from "react";
-import {
-  Animated,
-  Easing,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Animated, Easing } from "react-native";
 
 export interface MenuItem {
   id: string;
@@ -63,15 +59,15 @@ export function Menu({ actions, customTrigger }: MenuProps) {
   return (
     <View className="relative">
       {customTrigger ? (
-        <TouchableOpacity onPress={toggleMenu}>
+        <Button variant="unstyled" size="content" onPress={toggleMenu}>
           {customTrigger}
-        </TouchableOpacity>
+        </Button>
       ) : (
-        <TouchableOpacity onPress={toggleMenu}>
+        <Button variant="unstyled" size="content" onPress={toggleMenu}>
           <View className="h-10 w-10 items-center justify-center rounded-full">
             <Icon name="ellipsis-vertical" size={22} className="text-white" />
           </View>
-        </TouchableOpacity>
+        </Button>
       )}
       {isOpen && (
         <Animated.View
@@ -87,7 +83,9 @@ export function Menu({ actions, customTrigger }: MenuProps) {
           className="absolute right-0 top-16 z-50 w-56 rounded-2xl border border-border bg-surface"
         >
           {actions.map((action, index) => (
-            <Pressable
+            <Button
+              variant="unstyled"
+              size="content"
               key={action.id}
               onPress={() => handleAction(action.onPress)}
               className={`flex-row items-center px-4 py-3 ${index === actions.length - 1 ? "border-0" : "border-b border-border"}`}
@@ -100,7 +98,7 @@ export function Menu({ actions, customTrigger }: MenuProps) {
               <Text className="flex-1 text-foreground" numberOfLines={2}>
                 {action.label}
               </Text>
-            </Pressable>
+            </Button>
           ))}
         </Animated.View>
       )}

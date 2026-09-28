@@ -6,7 +6,7 @@ import {
   useController,
   UseControllerProps,
 } from "react-hook-form";
-import { View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledSwitchProps<
   FormType extends FieldValues,

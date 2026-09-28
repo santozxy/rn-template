@@ -1,7 +1,7 @@
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { useTheme } from "@/hooks/use-theme";
 import type { LucideIcon } from "lucide-react-native";
-import { View } from "react-native";
 
 interface FeatureCardProps {
   title: string;

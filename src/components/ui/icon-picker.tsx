@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Icon,
   iconNames,
@@ -6,10 +7,10 @@ import {
 } from "@/components/ui/icon";
 import { Search } from "@/components/ui/search";
 import { memo, useCallback, useMemo, useState } from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
-import { Button } from "./button";
+import { FlatList } from "react-native";
 import { Modal } from "./modal";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 const DEFAULT_ICON: IconName = "tag-outline";
 
@@ -88,7 +89,9 @@ export function IconPicker({
         </Text>
       )}
 
-      <TouchableOpacity
+      <Button
+        variant="unstyled"
+        size="content"
         activeOpacity={0.75}
         disabled={disabled}
         onPress={openModal}
@@ -117,7 +120,7 @@ export function IconPicker({
         </View>
 
         <Icon name="chevron-down" size={18} className="text-description" />
-      </TouchableOpacity>
+      </Button>
 
       {error && <Text className="text-sm text-destructive">{error}</Text>}
 
@@ -173,7 +176,9 @@ export function IconPicker({
             }
           />
 
-          <Button title="Fechar" variant="light" onPress={closeModal} />
+          <Button variant="light" onPress={closeModal}>
+            Fechar
+          </Button>
         </View>
       </Modal>
     </View>
@@ -190,7 +195,9 @@ const IconOption = memo(function IconOption({
   onPress: (icon: IconName) => void;
 }) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       activeOpacity={0.75}
       onPress={() => onPress(icon)}
       className={`flex-1 items-center gap-2 rounded-2xl border p-3 ${
@@ -210,7 +217,7 @@ const IconOption = memo(function IconOption({
       >
         {icon}
       </Text>
-    </TouchableOpacity>
+    </Button>
   );
 });
 

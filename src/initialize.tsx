@@ -1,4 +1,6 @@
+import { queryPersistenceConfig } from "@/lib/tanstack-query/config";
 import { LoadingScreen } from "@/routes/loading";
+import { initializeQueryStorage } from "@/storage/query/storage";
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,
@@ -7,10 +9,9 @@ import {
   PlusJakartaSans_800ExtraBold,
   useFonts,
 } from "@expo-google-fonts/plus-jakarta-sans";
-import { queryPersistenceConfig } from "@/lib/tanstack-query/config";
-import { initializeQueryStorage } from "@/storage/query/storage";
 import type { PropsWithChildren } from "react";
 import { useCallback, useEffect, useState } from "react";
+import { ThemeProvider } from "./providers/theme-provider";
 
 const LOADING_ANIMATION_TIMEOUT_MS = 4000;
 
@@ -57,7 +58,11 @@ export function Initialize({ children }: PropsWithChildren) {
   const animationReady = animationFinished || animationTimedOut;
 
   if (!fontsReady || !animationReady || !storageReady) {
-    return <LoadingScreen onAnimationFinish={handleAnimationFinish} />;
+    return (
+      <ThemeProvider>
+        <LoadingScreen onAnimationFinish={handleAnimationFinish} />
+      </ThemeProvider>
+    );
   }
 
   return children;

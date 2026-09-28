@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { StepCircle } from "./step-circle";
+import { View } from "@/components/ui/view";
 
 interface ProgressBarProps {
   totalSteps: number;

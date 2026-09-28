@@ -15,6 +15,7 @@ interface TransitionProps {
   theme: Theme;
   colors: ColorsTheme;
 }
+export const THEME_TRANSITION_DURATION_MS = 1400;
 export function Transition({ theme, colors }: TransitionProps) {
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const oldColors = colorsTheme[theme === "dark" ? "light" : "dark"];
@@ -40,40 +41,40 @@ export function Transition({ theme, colors }: TransitionProps) {
     rotate.value = 0;
 
     waveProgress.value = withTiming(1, {
-      duration: 650,
+      duration: 800,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
     });
 
     opacity.value = withSequence(
-      withTiming(1, { duration: 300, easing: Easing.out(Easing.cubic) }),
+      withTiming(1, { duration: 350, easing: Easing.out(Easing.cubic) }),
       withDelay(
-        550,
+        650,
         withTiming(0, { duration: 250, easing: Easing.in(Easing.cubic) }),
       ),
     );
 
     scale.value = withSequence(
-      withTiming(1.03, { duration: 400, easing: Easing.out(Easing.cubic) }),
-      withTiming(1, { duration: 450, easing: Easing.inOut(Easing.cubic) }),
+      withTiming(1.03, { duration: 500, easing: Easing.out(Easing.cubic) }),
+      withTiming(1, { duration: 550, easing: Easing.inOut(Easing.cubic) }),
     );
 
     iconScale.value = withSequence(
       withDelay(
-        250,
-        withTiming(1, { duration: 500, easing: Easing.out(Easing.elastic(1)) }),
+        300,
+        withTiming(1, { duration: 550, easing: Easing.out(Easing.elastic(1)) }),
       ),
       withDelay(
-        250,
-        withTiming(0, { duration: 200, easing: Easing.in(Easing.cubic) }),
+        300,
+        withTiming(0, { duration: 250, easing: Easing.in(Easing.cubic) }),
       ),
     );
 
     rotate.value = withSequence(
       withDelay(
-        200,
-        withTiming(180, { duration: 400, easing: Easing.out(Easing.cubic) }),
+        250,
+        withTiming(180, { duration: 500, easing: Easing.out(Easing.cubic) }),
       ),
-      withTiming(360, { duration: 350, easing: Easing.in(Easing.cubic) }),
+      withTiming(360, { duration: 450, easing: Easing.in(Easing.cubic) }),
     );
   }, [iconScale, opacity, rotate, scale, theme, waveProgress]);
 

@@ -1,6 +1,7 @@
 import { responsiveTokens } from "@/theme/responsive";
 import React from "react";
-import { useWindowDimensions, View, type ViewProps } from "react-native";
+import { useWindowDimensions, type ViewProps } from "react-native";
+import { View } from "@/components/ui/view";
 
 export type ResponsiveContainerSize = "content" | "form";
 

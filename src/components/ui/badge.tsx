@@ -1,7 +1,7 @@
 import React, { JSX } from "react";
-import { View } from "react-native";
 import { Text } from "./text";
 import { BadgeVariant, badgeVariantStyles } from "@/theme/variants/badge";
+import { View } from "@/components/ui/view";
 
 interface BadgeProps {
   text: string;

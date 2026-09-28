@@ -1,6 +1,7 @@
 import { useTheme } from "@/hooks/use-theme";
 import React, { useEffect, useRef } from "react";
-import { Animated, View } from "react-native";
+import { Animated } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ProgressProps {
   /** Valor atual do progresso (0 a 1) */

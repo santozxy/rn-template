@@ -1,12 +1,12 @@
 import { useTheme } from "@/hooks/use-theme";
 import { useEffect } from "react";
-import { View } from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   interpolateColor,
 } from "react-native-reanimated";
+import { View } from "@/components/ui/view";
 
 interface StepCircleProps {
   step: string;

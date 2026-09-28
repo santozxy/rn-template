@@ -8,7 +8,6 @@ import {
   type DefaultValues,
   type SubmitHandler,
 } from "react-hook-form";
-import { View } from "react-native";
 import {
   KeyboardAwareScrollView,
   type KeyboardAwareScrollViewRef,
@@ -16,6 +15,7 @@ import {
 import { Button } from "../../ui/button";
 import { Dialog } from "../../ui/dialog";
 import { ProgressBar } from "./progress-bar/progress-bar";
+import { View } from "@/components/ui/view";
 
 interface FormProps<T> {
   children?: React.ReactNode;
@@ -156,41 +156,45 @@ export function GlobalForm<T extends Record<string, any>>({
                 {currentStep > 0 && (
                   <Button
                     onPress={goToPreviousStep}
-                    title="Voltar"
                     variant="secondary"
                     className="flex-1"
                     disabled={isLoading}
                     loading={isLoading}
-                  />
+                  >
+                    Voltar
+                  </Button>
                 )}
 
                 {currentStep < steps.length - 1 ? (
                   <Button
                     onPress={handleNextStep}
-                    title="Próximo"
                     className="flex-1"
                     disabled={isLoading}
                     loading={isLoading}
-                  />
+                  >
+                    Próximo
+                  </Button>
                 ) : (
                   <Button
                     onPress={handleNextStep}
-                    title={buttonTitle}
                     className="flex-1"
                     loading={isLoading}
                     disabled={submitDisabled}
-                  />
+                  >
+                    {buttonTitle}
+                  </Button>
                 )}
               </>
             ) : (
               // 🔹 Sem steps
               <Button
                 onPress={handleSimpleSubmit}
-                title={buttonTitle}
                 className="flex-1"
                 loading={isLoading}
                 disabled={submitDisabled}
-              />
+              >
+                {buttonTitle}
+              </Button>
             )}
           </View>
         </View>

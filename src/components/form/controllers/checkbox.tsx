@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import {
@@ -5,7 +6,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface CheckboxProps {
   label?: string;
@@ -25,7 +26,9 @@ export function ControlledCheckbox<FormType extends FieldValues>({
       rules={rules}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <View className="flex-col gap-2">
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             onPress={() => onChange(!value)}
             className="flex-row items-center"
             activeOpacity={0.8}
@@ -52,7 +55,7 @@ export function ControlledCheckbox<FormType extends FieldValues>({
                 {label}
               </Text>
             )}
-          </TouchableOpacity>
+          </Button>
 
           {error?.message && (
             <Text className="mt-1 text-sm text-red-500">{error.message}</Text>

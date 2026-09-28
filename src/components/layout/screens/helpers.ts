@@ -22,11 +22,11 @@ export interface ScreenBaseProps {
   contentSize?: ResponsiveContainerSize;
   padded?: boolean;
   center?: boolean;
+  gradientBackground?: boolean;
   backgroundColor?: ColorValue;
   statusBarStyle?: StatusBarStyle;
   style?: StyleProp<ViewStyle>;
   contentContainerStyle?: StyleProp<ViewStyle>;
-  tabBarScreen?: boolean;
 }
 
 export type ScreenProps = ScreenBaseProps;

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import React from "react";
@@ -6,7 +7,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledRatingProps {
   containerClassName?: string;
@@ -48,7 +49,9 @@ export function ControlledRating<FormType extends FieldValues>({
                 const isFilled = ratingValue <= value;
 
                 return (
-                  <TouchableOpacity
+                  <Button
+                    variant="unstyled"
+                    size="content"
                     key={index}
                     onPress={() => onChange(ratingValue)}
                     activeOpacity={0.7}
@@ -60,7 +63,7 @@ export function ControlledRating<FormType extends FieldValues>({
                       size={size}
                       style={{ marginHorizontal: 6 }}
                     />
-                  </TouchableOpacity>
+                  </Button>
                 );
               })}
             </View>

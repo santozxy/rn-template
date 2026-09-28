@@ -4,6 +4,7 @@ import {
   type Theme,
   type ThemePreference,
 } from "@/theme/colors";
+import { View } from "@/components/ui/view";
 import { themeStorage } from "@/storage/theme/storage";
 import { Transition } from "@/theme/transition";
 import { themeVariables } from "@/theme/variables";
@@ -17,7 +18,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useColorScheme as useSystemColorScheme, View } from "react-native";
+import { useColorScheme as useSystemColorScheme } from "react-native";
 
 export interface ThemeContextData {
   theme: Theme;

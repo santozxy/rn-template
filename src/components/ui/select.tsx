@@ -1,16 +1,11 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { useTheme } from "@/hooks/use-theme";
 import { removeAccents } from "@/utils/text";
 import React, { useCallback, useMemo, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Modal,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, Modal, Pressable } from "react-native";
 import { Search } from "./search";
 
 export interface Option {
@@ -93,7 +88,9 @@ export function Select({
           {title}
         </Text>
       )}
-      <Pressable
+      <Button
+        variant="unstyled"
+        size="content"
         disabled={disabled}
         onPress={() => {
           if (!disabled && !loading) setModalVisible(true);
@@ -131,7 +128,7 @@ export function Select({
             />
           )}
         </View>
-      </Pressable>
+      </Button>
       <Modal
         visible={modalVisible}
         transparent
@@ -202,7 +199,9 @@ function SelectItem({
   onPress: () => void;
 }) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       onPress={onPress}
       className={`flex-row items-center justify-between rounded-2xl border p-4 ${
         isSelected
@@ -221,6 +220,6 @@ function SelectItem({
       {isSelected && (
         <Icon name="check-circle" size={18} className="color-primary" />
       )}
-    </TouchableOpacity>
+    </Button>
   );
 }

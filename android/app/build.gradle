@@ -106,9 +106,9 @@ android {
         }
         release {
             storeFile file('release.keystore')
-            storePassword 'android'
+            storePassword 'lae66141'
             keyAlias 'androidreleasekey'
-            keyPassword 'android'
+            keyPassword 'lae66141'
               android.applicationVariants.all { variant ->
                 variant.outputs.all {
                     outputFileName = "RnTemplate_${versionName}_${versionCode}.apk"

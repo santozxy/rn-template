@@ -2,8 +2,8 @@ import { InputProps } from "@/components/ui/input";
 import { MaskInput } from "@/components/ui/mask-input";
 import { Text } from "@/components/ui/text";
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
-import { View } from "react-native";
 import { MaskInputProps } from "react-native-mask-input";
+import { View } from "@/components/ui/view";
 
 interface ControlledMaskInputProps extends MaskInputProps {
   label: string;

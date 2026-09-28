@@ -1,8 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/hooks/use-theme";
 import React from "react";
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
-import { Pressable, TextStyle, View, ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
+import { View } from "@/components/ui/view";
 
 export interface RadioButtonOption {
   id: string | number;
@@ -57,8 +59,12 @@ export function ControlledRadioGroup<T extends FieldValues>({
               const activeColor = option.color || colors.primary;
 
               return (
-                <Pressable
+                <Button
+                  variant="unstyled"
+                  size="content"
                   key={option.id}
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: isSelected }}
                   onPress={() => onChange(option.id)}
                   className={`flex-row items-center gap-2 rounded-2xl border bg-input p-2 ${
                     layout === "column" ? "w-full" : ""
@@ -102,7 +108,7 @@ export function ControlledRadioGroup<T extends FieldValues>({
                   >
                     {option.name}
                   </Text>
-                </Pressable>
+                </Button>
               );
             })}
           </View>

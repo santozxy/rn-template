@@ -1,5 +1,5 @@
 import { Text } from "@/components/ui/text";
-import { View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface DetailRowProps {
   label: string;

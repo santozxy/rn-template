@@ -1,6 +1,6 @@
 import { Icon } from "@/components/ui/icon";
-import { View } from "react-native";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 interface OfflineDataUnavailableProps {
   message?: string;

@@ -6,7 +6,7 @@ import { tanstackStorage } from "@/storage/query/storage";
 export const QUERY_CACHE_MAX_AGE = 1000 * 60 * 60 * 24 * 7; // 7 days
 export const QUERY_CACHE_STALE_TIME = 1000 * 60 * 5; // 5 minutes
 
-const QUERY_CACHE_NAMESPACE = "template-query-cache";
+const QUERY_CACHE_NAMESPACE = "@fleettracker:query-cache";
 export const QUERY_CACHE_VERSION = "v1";
 
 export type QueryCacheScope = {

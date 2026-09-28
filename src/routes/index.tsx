@@ -1,5 +1,6 @@
 import { ModeBanner } from "@/components/layout/mode-banner";
 import { OfflineBanner } from "@/components/ui/offline-mode";
+import { View } from "@/components/ui/view";
 import { useAuth } from "@/hooks/use-auth";
 import { useNetwork } from "@/hooks/use-network";
 import { useHasUnavailableOfflineQueries } from "@/hooks/use-offline-query-state";
@@ -13,7 +14,6 @@ import {
 } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { useMemo } from "react";
-import { View } from "react-native";
 import { AppStack } from "./app-stack";
 import { AuthStack } from "./auth-stack";
 import { linking } from "./linking";

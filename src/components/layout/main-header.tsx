@@ -1,60 +1,55 @@
 import { ResponsiveContainer } from "@/components/layout/responsive/container";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { useAuth } from "@/hooks/use-auth";
 import { useScreenSafeAreaInsets } from "@/hooks/use-screen-safe-area-insets";
 import { useTheme } from "@/hooks/use-theme";
 import { getFirstAndLastName } from "@/utils/text";
 import { StatusBar } from "expo-status-bar";
-import { Bell, UserRound } from "lucide-react-native";
-import { Pressable, View } from "react-native";
+import { ToggleTheme } from "../ui/toggle-theme";
 
 interface MainHeaderProps {
-  onNotificationPress?: () => void;
+  title?: string;
+  description?: string;
 }
 
-export function MainHeader({ onNotificationPress }: MainHeaderProps) {
+export function MainHeader({ title, description }: MainHeaderProps) {
   const { auth } = useAuth();
-  const { colors } = useTheme();
+  const { theme } = useTheme();
   const insets = useScreenSafeAreaInsets();
+  const resolvedTitle =
+    title ??
+    `Olá, ${getFirstAndLastName(auth?.user.name) || "seja bem-vindo"}!`;
+  const resolvedDescription = description ?? "Acompanhe tudo em um só lugar.";
 
   return (
-    <View
-      className="min-h-20 bg-primary"
-      style={{ paddingLeft: insets.left, paddingRight: insets.right }}
-    >
-      <StatusBar style="light" animated />
+    <View style={{ paddingLeft: insets.left, paddingRight: insets.right }}>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} animated />
       <ResponsiveContainer
         padded
-        className="flex-row items-center justify-between gap-3"
+        className="flex-row items-center justify-between gap-4"
         style={{
-          minHeight: 80 + insets.top,
-          paddingTop: insets.top + 8,
-          paddingBottom: 8,
+          minHeight: 64 + insets.top,
+          paddingTop: insets.top + 16,
         }}
       >
-        <View className="flex-1 flex-row items-center gap-3">
-          <View className="h-9 w-9 items-center justify-center rounded-full bg-primary-foreground/15">
-            <UserRound color={colors.primaryForeground} size={20} />
-          </View>
+        <View className="flex-1">
           <Text
-            className="flex-1 font-semibold text-primary-foreground"
-            numberOfLines={1}
+            className="font-bold text-2xl text-foreground"
+            numberOfLines={2}
+            selectable
           >
-            Olá, {getFirstAndLastName(auth?.user.name) || "seja bem-vindo"}!
+            {resolvedTitle}
+          </Text>
+          <Text
+            className="text-base font-normal text-description"
+            numberOfLines={1}
+            selectable
+          >
+            {resolvedDescription}
           </Text>
         </View>
-
-        {onNotificationPress ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Abrir notificações"
-            className="h-10 w-10 items-center justify-center rounded-full active:bg-primary-foreground/15"
-            hitSlop={8}
-            onPress={onNotificationPress}
-          >
-            <Bell color={colors.primaryForeground} size={20} />
-          </Pressable>
-        ) : null}
+        <ToggleTheme />
       </ResponsiveContainer>
     </View>
   );

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { ApiResponsePaginated } from "@/api/types";
 import { ListPaginated } from "@/components/list/list-paginated";
 import { Icon } from "@/components/ui/icon";
@@ -13,7 +14,7 @@ import {
   type FieldValues,
   UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledPaginatedSelectMultipleOption {
   id: number;
@@ -149,7 +150,9 @@ export function ControlledPaginatedMultiSelect<
         : false;
 
       return (
-        <TouchableOpacity
+        <Button
+          variant="unstyled"
+          size="content"
           onPress={() => handleToggleSelection(itemValue, values, onChange)}
           disabled={isMaxReached}
           className={`flex-row items-center justify-between  rounded-2xl border bg-secondary p-3 ${
@@ -164,7 +167,7 @@ export function ControlledPaginatedMultiSelect<
           ) : (
             <Icon name="circle" size={18} className="color-border" />
           )}
-        </TouchableOpacity>
+        </Button>
       );
     },
     [getOptionLabel, getOptionValue, handleToggleSelection, maxSelection],
@@ -199,7 +202,9 @@ export function ControlledPaginatedMultiSelect<
               {rules?.required && <Text className="text-destructive"> *</Text>}
             </Text>
 
-            <TouchableOpacity
+            <Button
+              variant="unstyled"
+              size="content"
               className={`flex-row items-center justify-between rounded-md border p-3 ${
                 disabled ? "bg-input-disabled" : "bg-input"
               } ${fieldError ? "border-destructive" : "border-border"}`}
@@ -232,7 +237,9 @@ export function ControlledPaginatedMultiSelect<
                           >
                             {getOptionLabel(item)}
                           </Text>
-                          <TouchableOpacity
+                          <Button
+                            variant="unstyled"
+                            size="content"
                             onPress={() =>
                               handleRemoveBadge(
                                 getOptionValue(item),
@@ -248,7 +255,7 @@ export function ControlledPaginatedMultiSelect<
                               size={16}
                               className="color-primary"
                             />
-                          </TouchableOpacity>
+                          </Button>
                         </View>
                       </View>
                     ))}
@@ -258,7 +265,7 @@ export function ControlledPaginatedMultiSelect<
               <View className="ml-2">
                 <Icon name="chevron-down" size={16} className="color-primary" />
               </View>
-            </TouchableOpacity>
+            </Button>
 
             {fieldError && (
               <Text className="text-sm text-destructive">

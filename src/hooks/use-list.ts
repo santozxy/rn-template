@@ -1,10 +1,5 @@
-import {
-  type QueryKey,
-  useQuery,
-  type UseQueryOptions,
-} from "@tanstack/react-query";
-import { useEffect } from "react";
-import { handleApiError } from "@/api/handlers";
+import { useQuery } from "@/hooks/use-query";
+import { type QueryKey, type UseQueryOptions } from "@tanstack/react-query";
 
 interface UseListParams<T> extends UseQueryOptions<T[]> {
   queryKey: QueryKey;
@@ -18,19 +13,10 @@ export function useList<T>({ queryKey, queryFn, ...rest }: UseListParams<T>) {
     ...rest,
   });
 
-  useEffect(() => {
-    if (query.error) {
-      handleApiError(query.error);
-    }
-  }, [query.error]);
-
   const items = query.data ?? [];
-  const isOfflineUnavailable =
-    query.fetchStatus === "paused" && query.data === undefined;
 
   return {
     items,
-    isOfflineUnavailable,
     ...query,
   };
 }

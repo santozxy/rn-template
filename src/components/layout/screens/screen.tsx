@@ -1,12 +1,13 @@
+import { useHasBottomTabBar } from "@/hooks/use-bottom-tab-bar-content-padding";
 import { useScreenSafeAreaInsets } from "@/hooks/use-screen-safe-area-insets";
 import { useTheme } from "@/hooks/use-theme";
-import { Platform, View } from "react-native";
 import { ScreenChrome } from "./components/chrome";
 import { ScreenContainer } from "./components/container";
 import { ScreenContent } from "./components/content";
 import { ScreenDescription } from "./components/description";
 import type { ScreenProps } from "./helpers";
 import { hasScreenChrome, resolveScreenStatusBarStyle } from "./helpers";
+import { View } from "@/components/ui/view";
 
 export type { ScreenProps } from "./helpers";
 
@@ -21,13 +22,13 @@ export function Screen({
   contentSize,
   padded,
   center,
+  gradientBackground,
   backgroundColor,
   statusBarStyle,
   style,
   contentContainerStyle,
-  tabBarScreen,
 }: ScreenProps) {
-  const noInsetsBottom = tabBarScreen && Platform.OS === "android";
+  const hasBottomTabBar = useHasBottomTabBar();
   const insets = useScreenSafeAreaInsets();
   const { theme } = useTheme();
   const hasChrome = hasScreenChrome({ header, title });
@@ -41,6 +42,7 @@ export function Screen({
 
   return (
     <ScreenContainer
+      gradientBackground={gradientBackground}
       backgroundColor={backgroundColor}
       statusBarStyle={resolvedStatusBarStyle}
       style={style}
@@ -58,7 +60,7 @@ export function Screen({
           flex: 1,
           paddingTop: hasChrome ? 0 : insets.top,
           paddingRight: insets.right,
-          paddingBottom: noInsetsBottom ? 0 : insets.bottom,
+          paddingBottom: hasBottomTabBar ? 0 : insets.bottom,
           paddingLeft: insets.left,
         }}
       >

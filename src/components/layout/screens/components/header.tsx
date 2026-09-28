@@ -2,11 +2,14 @@ import {
   ResponsiveContainer,
   type ResponsiveContainerSize,
 } from "@/components/layout/responsive/container";
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import { useScreenSafeAreaInsets } from "@/hooks/use-screen-safe-area-insets";
+import { useTheme } from "@/hooks/use-theme";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Pressable, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 export interface ScreenHeaderProps {
   title: string;
@@ -24,41 +27,35 @@ export function ScreenHeader({
   onBackPress,
   contentSize,
 }: ScreenHeaderProps) {
+  const { colors, theme, toggleTheme } = useTheme();
   const insets = useScreenSafeAreaInsets();
 
   return (
-    <View
-      className="bg-primary"
-      style={{ paddingRight: insets.right, paddingLeft: insets.left }}
-    >
+    <View style={{ paddingLeft: insets.left, paddingRight: insets.right }}>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} animated />
       <ResponsiveContainer
-        size={contentSize}
         padded
-        className="flex-row items-center gap-2"
+        className="flex-row items-center justify-between gap-4"
         style={{
           minHeight: 64 + insets.top,
-          paddingTop: insets.top + 8,
-          paddingBottom: 8,
+          paddingTop: insets.top + 16,
         }}
       >
         {canGoBack ? (
-          <Pressable
-            accessibilityRole="button"
+          <Button
             accessibilityLabel="Voltar"
+            variant="unstyled"
+            size="content"
             hitSlop={8}
             onPress={onBackPress}
-            className="h-11 w-11 items-center justify-center rounded-full active:bg-primary-foreground/15"
+            className="h-12 w-12 items-center justify-center rounded-full border border-border bg-background"
           >
-            <Icon
-              name="arrow-back"
-              size={26}
-              className="color-primary-foreground"
-            />
-          </Pressable>
+            <Icon name="arrow-back" size={26} className="text-foreground" />
+          </Button>
         ) : null}
 
         <Text
-          className={`flex-1 font-semibold text-lg text-primary-foreground ${
+          className={`flex-1 font-semibold text-lg text-foreground ${
             canGoBack || actions ? "text-left" : "text-center"
           }`}
           numberOfLines={2}
@@ -69,6 +66,29 @@ export function ScreenHeader({
         {actions ? (
           <View className="min-h-11 items-end justify-center">{actions}</View>
         ) : null}
+        <Button
+          accessibilityLabel={
+            theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"
+          }
+          variant="unstyled"
+          size="content"
+          className="h-12 w-12 items-center justify-center rounded-full border border-border bg-background"
+          hitSlop={8}
+          style={{
+            shadowColor: colors.black,
+            shadowOpacity: 0.2,
+            shadowOffset: { width: 0, height: 3 },
+            elevation: 4,
+            shadowRadius: 4,
+          }}
+          onPress={toggleTheme}
+        >
+          <Icon
+            name={theme === "dark" ? "sun" : "moon"}
+            size={21}
+            className="text-primary"
+          />
+        </Button>
       </ResponsiveContainer>
     </View>
   );

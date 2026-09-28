@@ -24,10 +24,12 @@ import {
   LoaderCircle,
   Lock,
   MinusCircle,
+  Moon,
   PlusCircle,
   Search,
   Settings,
   Star,
+  Sun,
   Tag,
   Trash2,
   Upload,
@@ -80,6 +82,8 @@ export const iconMap = {
   users: Users,
   "wifi-off": WifiOff,
   x: X,
+  moon: Moon,
+  sun: Sun,
 } as const satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof iconMap;

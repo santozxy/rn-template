@@ -2,6 +2,7 @@ import { MainHeader } from "@/components/layout/main-header";
 import { ScrollableScreen } from "@/components/layout/screens/scrollable";
 import { Text } from "@/components/ui/text";
 import { Title } from "@/components/ui/title";
+import { View } from "@/components/ui/view";
 import { useAuth } from "@/hooks/use-auth";
 import { AppScreenProps } from "@/routes/types";
 import {
@@ -11,7 +12,6 @@ import {
   Palette,
   TriangleAlert,
 } from "lucide-react-native";
-import { View } from "react-native";
 import { Container } from "./components/container";
 import { ThemeSelector } from "./components/theme-selector";
 import { ToggleNotification } from "./components/toggle-notification";

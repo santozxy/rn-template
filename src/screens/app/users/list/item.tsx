@@ -1,15 +1,11 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import type { User } from "@/domains/users/types";
 import { formatPhone } from "@/utils/masks";
 import { Trash2, UserRound } from "lucide-react-native";
-import {
-  Pressable,
-  TouchableOpacity,
-  View,
-  type GestureResponderEvent,
-} from "react-native";
-
+import { Pressable, type GestureResponderEvent } from "react-native";
 interface UserItemProps {
   item: User;
   onPress: (item: User) => void;
@@ -23,7 +19,9 @@ export function UserItem({ item, onPress, onDelete }: UserItemProps) {
   };
 
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       activeOpacity={0.75}
       className="flex-row items-center gap-3 rounded-xl border border-border bg-surface p-4"
       onPress={() => onPress(item)}
@@ -59,6 +57,6 @@ export function UserItem({ item, onPress, onDelete }: UserItemProps) {
       >
         <Trash2 size={18} className="text-destructive" />
       </Pressable>
-    </TouchableOpacity>
+    </Button>
   );
 }

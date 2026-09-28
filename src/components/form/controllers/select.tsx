@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Modal } from "@/components/ui/modal";
 import { Search } from "@/components/ui/search";
@@ -9,7 +10,8 @@ import {
   UseControllerProps,
   useController,
 } from "react-hook-form";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface Option {
   id: string | number;
@@ -118,7 +120,9 @@ export function ControlledSelect<FormType extends FieldValues>({
         {label}
         {rules?.required && <Text className="text-destructive"> *</Text>}
       </Text>
-      <TouchableOpacity
+      <Button
+        variant="unstyled"
+        size="content"
         className={` ${className} flex-row items-center justify-between rounded-xl border p-3 ${
           disabled ? "bg-input-disabled" : "bg-input"
         } ${error ? "border-destructive" : "border-border"} `}
@@ -135,7 +139,7 @@ export function ControlledSelect<FormType extends FieldValues>({
           <Text className="flex-1 text-foreground">{selectedItem.name}</Text>
         )}
         <Icon name="chevron-down" size={16} className="color-primary" />
-      </TouchableOpacity>
+      </Button>
       {error?.message && (
         <Text className="text-sm text-destructive">{error.message}</Text>
       )}
@@ -189,7 +193,9 @@ export const SelectItem = memo(function SelectItem({
   onSelect: (itemId: string | number, isSelected: boolean) => void;
 }) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       onPress={() => onSelect(item.id, isSelected)}
       className={`flex-row items-center justify-between  rounded-xl border bg-background p-3 ${
         isSelected ? "border-primary" : "border-border"
@@ -207,6 +213,6 @@ export const SelectItem = memo(function SelectItem({
       ) : (
         <Icon name="circle" size={18} className="color-border" />
       )}
-    </TouchableOpacity>
+    </Button>
   );
 });

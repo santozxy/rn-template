@@ -5,14 +5,14 @@ import { Screen } from "@/components/layout/screens/screen";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { getUserById, updateUser } from "@/domains/users/requests";
 import type { UpdateUser as UpdateUserPayload } from "@/domains/users/types";
 import { useAction } from "@/hooks/use-action";
+import { useQuery } from "@/hooks/use-query";
 import { queryKeys } from "@/lib/tanstack-query/keys";
 import { invalidateQuery } from "@/lib/tanstack-query/methods";
 import type { AppScreenProps } from "@/routes/types";
-import { useQuery } from "@tanstack/react-query";
-import { View } from "react-native";
 import { UpdateUserFields, type UpdateUserFormData } from "./components/fields";
 
 export function UpdateUser({

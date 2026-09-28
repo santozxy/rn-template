@@ -1,4 +1,6 @@
 import type { IconName } from "@/components/ui/icon";
+import { View } from "@/components/ui/view";
+import { useBottomTabBarContentPadding } from "@/hooks/use-bottom-tab-bar-content-padding";
 import { useNetwork } from "@/hooks/use-network";
 import { DEFAULT_OFFLINE_MESSAGE } from "@/lib/network/offline";
 import { toast } from "@/lib/toast";
@@ -7,7 +9,6 @@ import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
-  View,
   type ListRenderItem,
   type ListRenderItemInfo,
 } from "react-native";
@@ -35,6 +36,7 @@ export interface ListPaginatedProps<T> {
   ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
   separator?: boolean;
   loadingComponent: React.ReactNode;
+  paddingBottom?: number;
   keyExtractor?: (item: T, index: number) => string;
   layout?: ListLayout;
 }
@@ -57,10 +59,12 @@ export function ListPaginated<T>({
   initialNumToRender = 10,
   separator = false,
   loadingComponent,
+  paddingBottom,
   keyExtractor = defaultListKeyExtractor,
   layout = { minItemWidth: 320, maxColumns: 3 },
 }: ListPaginatedProps<T>) {
   const { status } = useNetwork();
+  const bottomTabBarContentPadding = useBottomTabBarContentPadding();
   const flatListRef = useRef<FlatList<T>>(null);
   const [refreshing, setRefreshing] = useState(false);
   const { columns, gap, itemWidth, onLayout } = useListLayout({
@@ -155,7 +159,13 @@ export function ListPaginated<T>({
         )
       }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ gap, flexGrow: 1, paddingBottom: 20 }}
+      contentContainerStyle={{
+        gap,
+        flexGrow: 1,
+        paddingBottom: horizontal
+          ? 0
+          : (paddingBottom ?? (bottomTabBarContentPadding || 20)),
+      }}
       columnWrapperStyle={columns > 1 ? { gap } : undefined}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.1}

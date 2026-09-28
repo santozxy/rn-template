@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import React from "react";
 import {
@@ -5,7 +6,7 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface TagItem {
   id: string;
@@ -47,7 +48,9 @@ export function ControlledTagsSelect<FormType extends FieldValues>({
             {data.map((tag) => {
               const isSelected = value.includes(tag.id);
               return (
-                <TouchableOpacity
+                <Button
+                  variant="unstyled"
+                  size="content"
                   key={`${tag.id}`}
                   onPress={() => {
                     if (isSelected) {
@@ -69,7 +72,7 @@ export function ControlledTagsSelect<FormType extends FieldValues>({
                   >
                     {tag.name}
                   </Text>
-                </TouchableOpacity>
+                </Button>
               );
             })}
           </View>

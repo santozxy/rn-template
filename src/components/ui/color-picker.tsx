@@ -1,6 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ReanimatedColorPicker, {
   HueSlider,
@@ -9,9 +9,9 @@ import ReanimatedColorPicker, {
   Swatches,
   type ColorFormatsObject,
 } from "reanimated-color-picker";
-import { Button } from "./button";
 import { Modal } from "./modal";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 const DEFAULT_COLOR = "#FDB913";
 
@@ -92,7 +92,9 @@ export function ColorPicker({
           {label}
         </Text>
       )}
-      <TouchableOpacity
+      <Button
+        variant="unstyled"
+        size="content"
         activeOpacity={0.75}
         disabled={disabled}
         onPress={openModal}
@@ -115,7 +117,7 @@ export function ColorPicker({
         </View>
 
         <Icon name="chevron-down" size={18} className="text-description" />
-      </TouchableOpacity>
+      </Button>
 
       {error && <Text className="text-sm text-destructive">{error}</Text>}
 
@@ -171,17 +173,12 @@ export function ColorPicker({
 
           <View className="gap-3">
             <View className="flex-row gap-3">
-              <Button
-                title="Cancelar"
-                variant="light"
-                className="flex-1"
-                onPress={closeModal}
-              />
-              <Button
-                title="Aplicar cor"
-                className="flex-1"
-                onPress={handleConfirm}
-              />
+              <Button variant="light" className="flex-1" onPress={closeModal}>
+                Cancelar
+              </Button>
+              <Button className="flex-1" onPress={handleConfirm}>
+                Aplicar cor
+              </Button>
             </View>
           </View>
         </SafeAreaView>

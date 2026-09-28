@@ -1,13 +1,15 @@
 import { useScreenSafeAreaInsets } from "@/hooks/use-screen-safe-area-insets";
+import { useBottomTabBarContentPadding } from "@/hooks/use-bottom-tab-bar-content-padding";
 import { useTheme } from "@/hooks/use-theme";
 import { useCallback, useState } from "react";
-import { RefreshControl, ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import { ScreenChrome } from "./components/chrome";
 import { ScreenContainer } from "./components/container";
 import { ScreenContent } from "./components/content";
 import { ScreenDescription } from "./components/description";
 import type { ScrollableScreenProps } from "./helpers";
 import { hasScreenChrome, resolveScreenStatusBarStyle } from "./helpers";
+import { View } from "@/components/ui/view";
 
 export type { ScrollableScreenProps } from "./helpers";
 
@@ -24,6 +26,7 @@ export function ScrollableScreen({
   contentSize,
   padded,
   center,
+  gradientBackground,
   backgroundColor,
   statusBarStyle,
   style,
@@ -36,6 +39,7 @@ export function ScrollableScreen({
 }: ScrollableScreenProps) {
   const [refreshing, setRefreshing] = useState(false);
   const insets = useScreenSafeAreaInsets();
+  const bottomTabBarContentPadding = useBottomTabBarContentPadding();
   const { theme } = useTheme();
   const hasChrome = hasScreenChrome({ header, title });
   const resolvedStatusBarStyle = resolveScreenStatusBarStyle({
@@ -74,6 +78,7 @@ export function ScrollableScreen({
 
   return (
     <ScreenContainer
+      gradientBackground={gradientBackground}
       backgroundColor={backgroundColor}
       statusBarStyle={resolvedStatusBarStyle}
       style={style}
@@ -99,7 +104,7 @@ export function ScrollableScreen({
             {
               flexGrow: 1,
               paddingTop: hasChrome ? 0 : insets.top,
-              paddingBottom: 24 + insets.bottom,
+              paddingBottom: bottomTabBarContentPadding || 24 + insets.bottom,
             },
             scrollViewProps?.contentContainerStyle,
           ]}

@@ -1,4 +1,6 @@
 import type { IconName } from "@/components/ui/icon";
+import { View } from "@/components/ui/view";
+import { useBottomTabBarContentPadding } from "@/hooks/use-bottom-tab-bar-content-padding";
 import { useNetwork } from "@/hooks/use-network";
 import { DEFAULT_OFFLINE_MESSAGE } from "@/lib/network/offline";
 import { toast } from "@/lib/toast";
@@ -7,7 +9,6 @@ import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
-  View,
   type ListRenderItem,
   type ListRenderItemInfo,
 } from "react-native";
@@ -51,7 +52,7 @@ export function List<T>({
   ListHeaderComponent,
   ListFooterComponent,
   ListEmptyComponent,
-  paddingBottom = 24,
+  paddingBottom,
   scrollEnabled = true,
   separator = false,
   loadingComponent,
@@ -61,6 +62,7 @@ export function List<T>({
   keyExtractor = defaultListKeyExtractor,
 }: ListProps<T>) {
   const { status } = useNetwork();
+  const bottomTabBarContentPadding = useBottomTabBarContentPadding();
   const flatListRef = useRef<FlatList<T>>(null);
   const items = data ?? [];
   const waitingForNetwork = status === "checking" && data === undefined;
@@ -116,7 +118,9 @@ export function List<T>({
       onLayout={onLayout}
       contentInsetAdjustmentBehavior="automatic"
       contentContainerStyle={{
-        paddingBottom: horizontal ? 0 : paddingBottom,
+        paddingBottom: horizontal
+          ? 0
+          : (paddingBottom ?? (bottomTabBarContentPadding || 24)),
         gap,
       }}
       columnWrapperStyle={columns > 1 ? { gap } : undefined}

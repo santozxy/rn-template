@@ -1,13 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import React, { useCallback } from "react";
-import {
-  FlatList,
-  Modal,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { FlatList, Modal, useWindowDimensions } from "react-native";
 
 interface CarouselImagesProps {
   images: string[];
@@ -29,7 +25,7 @@ export function CarouselImages({ images }: CarouselImagesProps) {
 
   const renderItem = useCallback(({ item }: { item: string }) => {
     return (
-      <TouchableOpacity onPress={() => openImage(item)}>
+      <Button variant="unstyled" size="content" onPress={() => openImage(item)}>
         <Image
           source={{ uri: item }}
           style={{
@@ -39,7 +35,7 @@ export function CarouselImages({ images }: CarouselImagesProps) {
             borderRadius: 12,
           }}
         />
-      </TouchableOpacity>
+      </Button>
     );
   }, []);
 
@@ -60,12 +56,14 @@ export function CarouselImages({ images }: CarouselImagesProps) {
       {/* Modal da imagem ampliada */}
       <Modal visible={modalVisible} transparent onRequestClose={closeModal}>
         <View className="flex-1 items-center justify-center bg-black/90">
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             onPress={closeModal}
             className="absolute right-5 top-10 z-10"
           >
             <Text className="text-lg text-white">Fechar</Text>
-          </TouchableOpacity>
+          </Button>
 
           {selectedImage && (
             <Image

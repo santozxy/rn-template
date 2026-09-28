@@ -9,13 +9,75 @@ const restrictedTextImport = {
     "Use @/components/ui/text para manter tipografia e tema padronizados.",
 };
 
+const restrictedViewImport = {
+  name: "react-native",
+  importNames: ["View"],
+  message:
+    "Use @/components/ui/view para padronizar os containers da aplicação.",
+};
+
+const restrictedTouchableOpacityImport = {
+  name: "react-native",
+  importNames: ["TouchableOpacity"],
+  message:
+    "Use @/components/ui/button para padronizar os elementos interativos da aplicação.",
+};
+
 module.exports = defineConfig([
   expoConfig,
   eslintPluginPrettierRecommended,
   { ignores: ["dist/*", "ios/*", "android/*"] },
   {
     files: ["src/**/*.{ts,tsx}"],
-    ignores: ["src/hooks/use-action.ts", "src/components/ui/text.tsx"],
+    ignores: [
+      "src/hooks/use-action.ts",
+      "src/hooks/use-query.ts",
+      "src/components/ui/button.tsx",
+      "src/components/ui/text.tsx",
+      "src/components/ui/view.tsx",
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@tanstack/react-query",
+              importNames: ["useMutation", "useQuery"],
+              message:
+                "Use os hooks internos useAction e useQuery para manter tratamento de erros e bloqueio offline.",
+            },
+            restrictedTextImport,
+            restrictedViewImport,
+            restrictedTouchableOpacityImport,
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/hooks/use-action.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@tanstack/react-query",
+              importNames: ["useQuery"],
+              message:
+                "Use o hook interno useQuery para manter tratamento de erros e bloqueio offline.",
+            },
+            restrictedTextImport,
+            restrictedViewImport,
+            restrictedTouchableOpacityImport,
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/hooks/use-query.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -25,18 +87,34 @@ module.exports = defineConfig([
               name: "@tanstack/react-query",
               importNames: ["useMutation"],
               message:
-                "Use useAction para manter tratamento de erros e bloqueio offline.",
+                "Use o hook interno useAction para manter tratamento de erros e bloqueio offline.",
             },
             restrictedTextImport,
+            restrictedViewImport,
+            restrictedTouchableOpacityImport,
           ],
         },
       ],
     },
   },
   {
-    files: ["src/hooks/use-action.ts"],
+    files: ["src/components/ui/text.tsx"],
     rules: {
-      "no-restricted-imports": ["error", { paths: [restrictedTextImport] }],
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [restrictedViewImport, restrictedTouchableOpacityImport],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/components/ui/view.tsx"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        { paths: [restrictedTouchableOpacityImport] },
+      ],
     },
   },
   {

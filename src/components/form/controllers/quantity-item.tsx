@@ -1,17 +1,14 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import React, { useCallback, useEffect, useMemo } from "react";
 import {
   FieldValues,
   useController,
   UseControllerProps,
 } from "react-hook-form";
-import {
-  FlatList,
-  TouchableOpacity,
-  View,
-  type ListRenderItem,
-} from "react-native";
+import { FlatList, type ListRenderItem } from "react-native";
 
 export interface QuantityItemValue {
   id: string | number;
@@ -52,25 +49,29 @@ const QuantityListItem = React.memo(function QuantityListItem({
       </View>
 
       <View className="flex-row items-center gap-x-4 rounded-xl border border-border bg-input p-2">
-        <TouchableOpacity
+        <Button
+          variant="unstyled"
+          size="content"
           onPress={() => onDecrease(item.id)}
           activeOpacity={0.7}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Icon name="minus-circle" size={24} className="text-destructive" />
-        </TouchableOpacity>
+        </Button>
 
         <Text className="w-8 text-center font-bold text-lg text-foreground">
           {item.quantity}
         </Text>
 
-        <TouchableOpacity
+        <Button
+          variant="unstyled"
+          size="content"
           onPress={() => onIncrease(item.id)}
           activeOpacity={0.7}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Icon name="plus-circle" size={24} className="text-success" />
-        </TouchableOpacity>
+        </Button>
       </View>
     </View>
   );
@@ -197,7 +198,9 @@ export function ControlledQuantityItem<FormType extends FieldValues>({
             {label}
           </Text>
           <View className="flex-1 flex-row items-center justify-end">
-            <TouchableOpacity
+            <Button
+              variant="unstyled"
+              size="content"
               onPress={() => setShowList((prev) => !prev)}
               activeOpacity={0.7}
               hitSlop={10}
@@ -207,7 +210,7 @@ export function ControlledQuantityItem<FormType extends FieldValues>({
                 size={20}
                 className="text-primary"
               />
-            </TouchableOpacity>
+            </Button>
           </View>
         </View>
       )}

@@ -18,7 +18,7 @@ function showToast(
 ) {
   Toast.show({
     type,
-    // text1,
+    text1,
     text2,
     ...toastGlobalConfig,
     topOffset,
@@ -41,12 +41,12 @@ function showToast(
 export const toast = {
   error: (text: string, topOffset?: number) => {
     Vibration.vibrate(1000);
-    showToast("error", "Ops..", text, topOffset);
+    showToast("error", "Erro", text, topOffset);
   },
   success: (text: string, topOffset?: number) =>
-    showToast("success", "Tudo certo!", text, topOffset),
+    showToast("success", "Sucesso", text, topOffset),
   info: (text: string, topOffset?: number) =>
     showToast("info", "Informação", text, topOffset),
   warning: (text: string, topOffset?: number) =>
-    showToast("warning", "Aviso", text, topOffset),
+    showToast("warning", "Atenção", text, topOffset),
 };

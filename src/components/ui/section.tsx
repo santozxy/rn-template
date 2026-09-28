@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 export function Section({
   title,

@@ -1,69 +1,82 @@
+import { api } from "@/api/config";
+import { images } from "@/assets";
 import { ControlledInput } from "@/components/form/controllers/input";
 import { FormScreen } from "@/components/layout/screens/form";
 import { Button } from "@/components/ui/button";
+import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
-import { developmentCredentials, login } from "@/domains/auth/requests";
+import { View } from "@/components/ui/view";
+import { login } from "@/domains/auth/requests";
 import type { Auth, Credentials } from "@/domains/auth/types";
 import { useAction } from "@/hooks/use-action";
 import { useAuth } from "@/hooks/use-auth";
-import { useTheme } from "@/hooks/use-theme";
-import { ShieldCheck } from "lucide-react-native";
 import { useForm } from "react-hook-form";
-import { Keyboard, View } from "react-native";
+import { Keyboard } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
+const defaultValues: Credentials = {
+  email: "admin.syslae",
+  password: "Admin@123",
+};
 
 export function Login() {
   const { saveAuth } = useAuth();
-  const { colors } = useTheme();
+  const isDev = api.isLocal || api.isDemo;
   const { control, handleSubmit } = useForm<Credentials>({
-    defaultValues: { email: "", password: "" },
+    defaultValues: isDev ? defaultValues : undefined,
   });
   const { mutateAsync, isPending } = useAction<Credentials, Auth>({
     mutationFn: login,
     disableSuccessToast: true,
     onSuccess: async ({ data }) => saveAuth(data),
+    disableErrorToast: false,
   });
 
   const onSubmit = async (credentials: Credentials) => {
     Keyboard.dismiss();
     await mutateAsync({
-      email: credentials.email.trim().toLowerCase(),
+      email: credentials.email.trim(),
       password: credentials.password,
     });
   };
 
   return (
-    <FormScreen>
-      <View className="items-center gap-4">
-        <View className="h-20 w-20 items-center justify-center rounded-3xl bg-primary-light">
-          <ShieldCheck color={colors.primary} size={42} strokeWidth={1.8} />
+    <FormScreen contentSize="form">
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+        contentContainerClassName="gap-6"
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="items-center gap-6">
+          <Image
+            source={images.logo}
+            className="h-40 w-80"
+            contentFit="contain"
+          />
+          <View className="items-center gap-2">
+            <Text className="text-center font-bold text-3xl" selectable>
+              Olá, seja bem-vindo(a)
+            </Text>
+            <Text className="text-center text-description" selectable>
+              Faça login na sua conta.
+            </Text>
+          </View>
         </View>
-        <View className="items-center gap-2">
-          <Text className="text-center font-bold text-3xl" selectable>
-            Bem-vindo(a)
-          </Text>
-          <Text className="text-center text-description" selectable>
-            Entre com seu e-mail e senha para acessar o aplicativo.
-          </Text>
-        </View>
-      </View>
-      <View className="gap-5 rounded-3xl border border-border bg-surface p-5">
         <ControlledInput
           control={control}
           name="email"
-          label="E-mail"
+          label="Nome de usuário"
           autoCapitalize="none"
           autoCorrect={false}
           keyboardType="email-address"
           placeholder="Informe seu e-mail"
           returnKeyType="next"
           rules={{
-            required: "Informe o e-mail.",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Informe um e-mail válido.",
-            },
+            required: "Informe o nome de usuário.",
           }}
         />
+
         <ControlledInput
           control={control}
           name="password"
@@ -74,21 +87,18 @@ export function Login() {
           rules={{ required: "Informe a senha." }}
           onSubmitEditing={handleSubmit(onSubmit)}
         />
+        <Button size="lg" loading={isPending} onPress={handleSubmit(onSubmit)}>
+          Entrar
+        </Button>
         <Button
-          title="Entrar"
           size="lg"
-          loading={isPending}
+          variant="light"
+          disabled={isPending}
           onPress={handleSubmit(onSubmit)}
-        />
-      </View>
-      <View className="items-center gap-1 rounded-2xl bg-primary-light p-4">
-        <Text className="text-sm text-description" selectable>
-          Acesso criado pelo seed do nest-template
-        </Text>
-        <Text className="font-semibold text-primary" selectable>
-          {developmentCredentials.email} / {developmentCredentials.password}
-        </Text>
-      </View>
+        >
+          Esqueci minha senha
+        </Button>
+      </KeyboardAwareScrollView>
     </FormScreen>
   );
 }

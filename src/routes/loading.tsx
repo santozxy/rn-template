@@ -1,7 +1,7 @@
 import { animations } from "@/assets";
 import { Animation } from "@/components/ui/animation";
+import { View } from "@/components/ui/view";
 import type { LottieViewProps } from "lottie-react-native";
-import { View } from "react-native";
 
 type LoadingScreenProps = Pick<LottieViewProps, "onAnimationFinish">;
 

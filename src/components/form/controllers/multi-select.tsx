@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Modal } from "@/components/ui/modal";
 import { Search } from "@/components/ui/search";
@@ -9,7 +10,8 @@ import {
   UseControllerProps,
   useController,
 } from "react-hook-form";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface Option {
   id: string | number;
@@ -156,7 +158,9 @@ export function ControlledMultiSelect<FormType extends FieldValues>({
         </View>
       </View>
 
-      <TouchableOpacity
+      <Button
+        variant="unstyled"
+        size="content"
         className={`flex-row items-center justify-between rounded-2xl border p-3 ${
           disabled ? "bg-input-disabled" : "bg-input"
         } ${error ? "border-destructive" : "border-border"}`}
@@ -178,7 +182,7 @@ export function ControlledMultiSelect<FormType extends FieldValues>({
         )}
 
         <Icon name="chevron-down" size={16} className="color-primary" />
-      </TouchableOpacity>
+      </Button>
 
       {selectedItems.length > 0 && (
         <View
@@ -196,7 +200,9 @@ export function ControlledMultiSelect<FormType extends FieldValues>({
               >
                 {item.name}
               </Text>
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 onPress={() =>
                   onChange(currentValue.filter((v) => v !== item.id))
                 }
@@ -204,7 +210,7 @@ export function ControlledMultiSelect<FormType extends FieldValues>({
                 hitSlop={{ top: 5, bottom: 5, left: 5, right: 5 }}
               >
                 <Icon name="x" size={16} className="color-destructive" />
-              </TouchableOpacity>
+              </Button>
             </View>
           ))}
         </View>
@@ -242,12 +248,14 @@ export function ControlledMultiSelect<FormType extends FieldValues>({
               </Text>
             )}
             {currentValue.length > 0 && (
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 onPress={() => onChange([])}
                 className="flex self-end"
               >
                 <Text className="text-sm text-primary">Limpar seleção</Text>
-              </TouchableOpacity>
+              </Button>
             )}
           </View>
           <FlatList
@@ -287,7 +295,9 @@ const MultiSelectItem = memo(function MultiSelectItem({
   onToggleSelection: (itemId: string | number) => void;
 }) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       onPress={() => onToggleSelection(item.id)}
       disabled={disabled}
       className={`flex-row items-center justify-between  rounded-2xl border bg-secondary p-3  ${
@@ -307,6 +317,6 @@ const MultiSelectItem = memo(function MultiSelectItem({
       ) : (
         <Icon name="circle" size={18} className="color-border" />
       )}
-    </TouchableOpacity>
+    </Button>
   );
 });

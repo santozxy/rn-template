@@ -1,8 +1,9 @@
 import { useTheme } from "@/hooks/use-theme";
+import { View } from "@/components/ui/view";
 import type { ThemePreference } from "@/theme/colors";
 import { clsx } from "clsx";
 import { Moon, Smartphone, Sun, type LucideIcon } from "lucide-react-native";
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
 
 const options: {
   value: ThemePreference;

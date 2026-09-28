@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { View } from "react-native";
+import { View } from "@/components/ui/view";
 
 function LoadingSection({ rows }: { rows: number }) {
   return (

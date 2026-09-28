@@ -1,21 +1,29 @@
-type Params = Record<string, unknown>;
+type Params = object;
 
-export function createQueryKeys(root: string) {
-  const all = [root] as const;
+const authKeys = {
+  all: ["auth"] as const,
+  user: () => [...authKeys.all, "user"] as const,
+};
 
-  return {
-    all,
-    lists: () => [...all, "list"] as const,
-    list: (params: Params = {}) => [...all, "list", params] as const,
-    details: () => [...all, "detail"] as const,
-    detail: (id: string | number) => [...all, "detail", id] as const,
-  };
-}
+const usersKeys = {
+  all: ["users"] as const,
+  lists: () => [...usersKeys.all, "list"] as const,
+  list: (params?: Params) => [...usersKeys.lists(), params ?? {}] as const,
+  details: () => [...usersKeys.all, "detail"] as const,
+  detail: (id: string | number) => [...usersKeys.details(), id] as const,
+  summary: (id: string, period: string) =>
+    [...usersKeys.detail(id), "summary", period] as const,
+};
+
+const trackingKeys = {
+  all: ["tracking"] as const,
+  positions: () => [...trackingKeys.all, "positions"] as const,
+  availableCommands: (vehicleId: string) =>
+    [...trackingKeys.all, "available-commands", vehicleId] as const,
+};
 
 export const queryKeys = {
-  auth: {
-    all: ["auth"] as const,
-    user: () => ["auth", "user"] as const,
-  },
-  users: createQueryKeys("users"),
+  auth: authKeys,
+  users: usersKeys,
+  tracking: trackingKeys,
 };

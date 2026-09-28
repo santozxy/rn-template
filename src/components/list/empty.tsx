@@ -1,6 +1,6 @@
 import { Icon, type IconName } from "@/components/ui/icon";
-import { View } from "react-native";
 import { Text } from "../ui/text";
+import { View } from "@/components/ui/view";
 
 interface EmptyProps {
   message: string;

@@ -5,9 +5,9 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, ReactNode, useCallback, useMemo } from "react";
-import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "./text";
+import { View } from "@/components/ui/view";
 
 type BottomSheetType = "default" | "modal";
 

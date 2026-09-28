@@ -5,26 +5,28 @@ import {
   type ButtonVariant,
 } from "@/theme/variants/button";
 import React from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Text } from "./text";
 
-export interface ButtonProps extends React.ComponentProps<
-  typeof TouchableOpacity
+export interface ButtonProps extends Omit<
+  React.ComponentProps<typeof TouchableOpacity>,
+  "children"
 > {
-  title: string;
+  children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
-  leftIcon?: React.ReactNode;
 }
 
 export function Button({
-  title,
+  children,
   variant = "default",
   size = "md",
+  activeOpacity = 0.7,
   loading = false,
-  leftIcon,
   disabled,
+  accessibilityRole = "button",
+  accessibilityState,
   className,
   ...props
 }: ButtonProps) {
@@ -35,25 +37,32 @@ export function Button({
   return (
     <TouchableOpacity
       {...props}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: isDisabled, busy: loading }}
-      activeOpacity={0.72}
+      accessibilityRole={accessibilityRole}
+      accessibilityState={{
+        ...accessibilityState,
+        disabled: isDisabled,
+        busy: loading,
+      }}
+      activeOpacity={activeOpacity}
       disabled={isDisabled}
-      className={`items-center justify-center ${variantStyle.container} ${sizeStyle.container} ${isDisabled ? "opacity-60" : ""} ${className ?? ""}`}
+      className={`${size === "content" ? "" : "flex-row items-center justify-center"} ${variantStyle.container} ${sizeStyle.container} ${sizeStyle.content} ${isDisabled ? "opacity-60" : ""} ${className ?? ""}`}
     >
       {loading ? (
         <ActivityIndicator size="small" className={variantStyle.loading} />
       ) : (
-        <View
-          className={`flex-row items-center justify-center ${sizeStyle.content}`}
-        >
-          {leftIcon}
-          <Text
-            className={`text-center ${variantStyle.text} ${sizeStyle.text}`}
-          >
-            {title}
-          </Text>
-        </View>
+        <>
+          {React.Children.map(children, (child) =>
+            typeof child === "string" || typeof child === "number" ? (
+              <Text
+                className={`text-center ${variantStyle.text} ${sizeStyle.text}`}
+              >
+                {child}
+              </Text>
+            ) : (
+              child
+            ),
+          )}
+        </>
       )}
     </TouchableOpacity>
   );

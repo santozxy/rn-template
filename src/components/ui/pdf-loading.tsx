@@ -1,7 +1,7 @@
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
-import React from "react";
-import { ActivityIndicator, Modal, View } from "react-native";
+import { View } from "@/components/ui/view";
+import { ActivityIndicator, Modal } from "react-native";
 
 interface PDFLoadingModalProps {
   visible: boolean;

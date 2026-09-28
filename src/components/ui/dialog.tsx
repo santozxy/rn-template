@@ -1,7 +1,8 @@
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import type { ButtonVariant } from "@/theme/variants/button";
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent, Modal, View } from "react-native";
+import { GestureResponderEvent, Modal } from "react-native";
 import { Button } from "./button";
 import { Input } from "./input";
 
@@ -96,8 +97,12 @@ export function Dialog({
   };
 
   const handleConfirm = async (e: GestureResponderEvent) => {
-    await onConfirm(e);
-    close();
+    try {
+      await onConfirm(e);
+      close();
+    } catch {
+      // A ação mantém o diálogo aberto para permitir nova tentativa.
+    }
   };
 
   // Garante sincronização quando o componente é controlado externamente
@@ -127,22 +132,24 @@ export function Dialog({
             <View className="mt-4 flex-row justify-end gap-4">
               {!hideCancelButton && (
                 <Button
-                  title={cancelText}
                   variant="outline"
                   size="sm"
                   onPress={close}
                   disabled={loading}
-                />
+                >
+                  {cancelText}
+                </Button>
               )}
 
               <Button
-                title={confirmText}
                 variant={variantStyle.button}
                 size="sm"
                 onPress={handleConfirm}
                 disabled={loading}
                 loading={loading}
-              />
+              >
+                {confirmText}
+              </Button>
             </View>
           </View>
         </View>
@@ -218,21 +225,23 @@ export function DialogJustification({
 
             <View className="mt-4 flex-row justify-end gap-4">
               <Button
-                title={cancelText}
                 variant="outline"
                 size="sm"
                 onPress={close}
                 disabled={loading}
-              />
+              >
+                {cancelText}
+              </Button>
 
               <Button
-                title={confirmText}
                 variant={variantStyle.button}
                 size="sm"
                 onPress={handleConfirm}
                 disabled={loading || !justification.trim()}
                 loading={loading}
-              />
+              >
+                {confirmText}
+              </Button>
             </View>
           </View>
         </View>

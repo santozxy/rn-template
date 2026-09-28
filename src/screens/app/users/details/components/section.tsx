@@ -1,6 +1,6 @@
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import type { PropsWithChildren } from "react";
-import { View } from "react-native";
 
 interface DetailSectionProps extends PropsWithChildren {
   title: string;

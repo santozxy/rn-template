@@ -1,7 +1,7 @@
-import { View } from "react-native";
 import React from "react";
 import { Badge } from "./badge";
 import { BadgeVariant } from "@/theme/variants/badge";
+import { View } from "@/components/ui/view";
 
 interface TagsProps {
   tags: { id: string; name: string }[];

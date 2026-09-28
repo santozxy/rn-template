@@ -4,6 +4,7 @@ import { ListPaginated } from "@/components/list/list-paginated";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { deleteUser, getUsers } from "@/domains/users/requests";
 import type { User } from "@/domains/users/types";
 import { useAction } from "@/hooks/use-action";
@@ -12,7 +13,6 @@ import { queryKeys } from "@/lib/tanstack-query/keys";
 import { invalidateQuery } from "@/lib/tanstack-query/methods";
 import type { AppTabScreenProps } from "@/routes/types";
 import { useCallback, useState } from "react";
-import { View } from "react-native";
 import { UserItem } from "./item";
 import { LoadingUsers } from "./loading";
 
@@ -57,7 +57,7 @@ export function Users({ navigation }: AppTabScreenProps<"Users">) {
   };
 
   return (
-    <Screen title="Usuários" header={<MainHeader />} tabBarScreen>
+    <Screen title="Usuários" header={<MainHeader />}>
       <View className="flex-row items-center justify-between">
         <Text className=" text-gray-500 dark:text-gray-400">
           Gerencie os usuários do sistema

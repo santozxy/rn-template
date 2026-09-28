@@ -1,6 +1,25 @@
-node_modules
-.expo
-dist
-android
-ios
-bun.lock
+# Dependencies and package-manager caches
+node_modules/
+.bun/
+
+# Expo and generated bundles
+.expo/
+dist/
+web-build/
+
+# Native build artifacts and installed dependencies
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+ios/build/
+ios/Pods/
+ios/*/Images.xcassets/
+
+# Generated declarations and third-party media assets
+nativewind-env.d.ts
+src/assets/animations/
+
+# Test and tooling output
+coverage/
+*.tsbuildinfo

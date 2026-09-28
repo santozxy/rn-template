@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Icon } from "@/components/ui/icon";
 import { Image } from "@/components/ui/image";
@@ -11,7 +12,8 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { logger } from "logger";
 import { useRef, useState } from "react";
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
-import { ActivityIndicator, Modal, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Modal } from "react-native";
+import { View } from "@/components/ui/view";
 
 type Variant = "default" | "profile";
 
@@ -78,7 +80,9 @@ export function ControlledImage<FormType extends FieldValues>({
                   )}
                 </Text>
 
-                <TouchableOpacity
+                <Button
+                  variant="unstyled"
+                  size="content"
                   onPress={handlePresentModal}
                   disabled={isUploading}
                   className={`flex-row items-center rounded-lg border p-3 ${
@@ -103,10 +107,12 @@ export function ControlledImage<FormType extends FieldValues>({
                       {value ? "Alterar imagem" : "Selecionar imagem"}
                     </Text>
                   )}
-                </TouchableOpacity>
+                </Button>
 
                 {value && (
-                  <TouchableOpacity
+                  <Button
+                    variant="unstyled"
+                    size="content"
                     onPress={() => setPreviewUri(value)}
                     className="mt-2"
                   >
@@ -120,7 +126,7 @@ export function ControlledImage<FormType extends FieldValues>({
                         borderColor: colors.border,
                       }}
                     />
-                  </TouchableOpacity>
+                  </Button>
                 )}
               </>
             )}
@@ -128,7 +134,9 @@ export function ControlledImage<FormType extends FieldValues>({
             {/* PROFILE DESIGN */}
             {variant === "profile" && (
               <View className="items-center">
-                <TouchableOpacity
+                <Button
+                  variant="unstyled"
+                  size="content"
                   onPress={handlePresentModal}
                   activeOpacity={0.8}
                 >
@@ -181,7 +189,7 @@ export function ControlledImage<FormType extends FieldValues>({
                       </View>
                     )}
                   </View>
-                </TouchableOpacity>
+                </Button>
 
                 <Text className="mt-2 text-foreground">Alterar foto</Text>
               </View>
@@ -193,23 +201,27 @@ export function ControlledImage<FormType extends FieldValues>({
               title="Selecione uma opção"
               autoHeight
             >
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 className="w-full flex-row items-center gap-3 p-4"
                 onPress={() => handlePick(pickImageFromCamera)}
               >
                 <Icon name="camera" size={20} color={colors.foreground} />
                 <Text className="text-foreground">Tirar foto</Text>
-              </TouchableOpacity>
+              </Button>
 
               <Separator />
 
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 className="w-full flex-row items-center gap-3 p-4"
                 onPress={() => handlePick(() => pickImageFromLibrary(1))}
               >
                 <Icon name="image" size={20} color={colors.foreground} />
                 <Text className="text-foreground">Escolher da galeria</Text>
-              </TouchableOpacity>
+              </Button>
             </BottomSheet>
 
             {/* PREVIEW */}
@@ -219,12 +231,14 @@ export function ControlledImage<FormType extends FieldValues>({
               onRequestClose={() => setPreviewUri(null)}
             >
               <View className="flex-1 items-center justify-center bg-black/90">
-                <TouchableOpacity
+                <Button
+                  variant="unstyled"
+                  size="content"
                   onPress={() => setPreviewUri(null)}
                   className="absolute right-5 top-10 z-10 rounded-full bg-destructive p-2"
                 >
                   <Icon name="x" size={22} color="#fff" />
-                </TouchableOpacity>
+                </Button>
 
                 <Image
                   source={{ uri: previewUri! }}

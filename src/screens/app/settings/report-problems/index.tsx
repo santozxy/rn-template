@@ -1,12 +1,12 @@
 import { GlobalForm } from "@/components/form/global-form/global-form";
 import { ScrollableScreen } from "@/components/layout/screens/scrollable";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import { ReportProblemForm } from "@/domains/settings/types";
 import { toast } from "@/lib/toast";
 import { AppScreenProps } from "@/routes/types";
 import { logger } from "logger";
 import React from "react";
-import { View } from "react-native";
 import { ReportForm } from "./components/report-form";
 import { sendReportMessage } from "./helpers";
 

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Input, type InputProps } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
@@ -7,7 +8,8 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from "react-hook-form";
-import { Alert, TouchableOpacity, View } from "react-native";
+import { Alert } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface ControlledTagListProps extends InputProps {
   label: string;
@@ -27,7 +29,9 @@ const TagItem = ({
   label: string;
   onRemove: () => void;
 }) => (
-  <TouchableOpacity
+  <Button
+    variant="unstyled"
+    size="content"
     onPress={onRemove}
     className="flex-row items-center gap-2 rounded-full border border-border bg-secondary px-4 py-2"
     activeOpacity={0.7}
@@ -36,7 +40,7 @@ const TagItem = ({
       {label}
     </Text>
     <Icon name="x" size={14} className="text-destructive" />
-  </TouchableOpacity>
+  </Button>
 );
 
 export function ControlledTagList<FormType extends FieldValues>({
@@ -102,7 +106,9 @@ export function ControlledTagList<FormType extends FieldValues>({
                   autoCapitalize="characters"
                 />
               </View>
-              <TouchableOpacity
+              <Button
+                variant="unstyled"
+                size="content"
                 onPress={handleAdd}
                 disabled={!input.trim()}
                 className="flex-row items-center justify-center rounded-xl bg-primary px-4 py-3 disabled:opacity-50"
@@ -110,7 +116,7 @@ export function ControlledTagList<FormType extends FieldValues>({
                 <Text className="font-bold text-primary-foreground">
                   {addButtonText}
                 </Text>
-              </TouchableOpacity>
+              </Button>
             </View>
 
             <View className="mb-2 flex-row flex-wrap gap-2">

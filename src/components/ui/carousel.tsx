@@ -1,12 +1,12 @@
+import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
 import React, { useCallback, useRef, useState } from "react";
 import {
   FlatList,
   Modal,
-  TouchableOpacity,
   useWindowDimensions,
-  View,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
@@ -45,13 +45,18 @@ export function Carousel({ images, leftComponent }: CarouselProps) {
 
   const renderItem = useCallback(
     ({ item, index }: { item: { id: string; url: string }; index: number }) => (
-      <TouchableOpacity activeOpacity={0.9} onPress={() => openImage(index)}>
+      <Button
+        variant="unstyled"
+        size="content"
+        activeOpacity={0.9}
+        onPress={() => openImage(index)}
+      >
         <Image
           source={{ uri: item.url }}
           style={{ width: carouselWidth, height: 256 }}
           contentFit="cover"
         />
-      </TouchableOpacity>
+      </Button>
     ),
     [carouselWidth, openImage],
   );
@@ -96,13 +101,15 @@ export function Carousel({ images, leftComponent }: CarouselProps) {
 
       <Modal visible={modalVisible} transparent={true} ref={modalFlatListRef}>
         <View className="flex-1 bg-black/90">
-          <TouchableOpacity
+          <Button
+            variant="unstyled"
+            size="content"
             onPress={closeImage}
             className="absolute right-2 top-32 z-50 flex-row items-center rounded-full bg-zinc-500/30 px-3 py-1"
           >
             <Text className="mr-1 text-lg text-white">✕</Text>
             <Text className="text-white">Fechar</Text>
-          </TouchableOpacity>
+          </Button>
           <FlatList
             key={`carousel-modal-${windowWidth}`}
             ref={modalFlatListRef}

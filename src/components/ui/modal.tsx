@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { View } from "@/components/ui/view";
 import React from "react";
 import {
   Keyboard,
@@ -6,8 +8,6 @@ import {
   Modal as RNModal,
   Platform,
   TouchableWithoutFeedback,
-  View,
-  Pressable,
 } from "react-native";
 import { Text } from "./text";
 
@@ -99,9 +99,14 @@ function FullModal({
       <View className={`flex-1 ${variantModal[variant]} p-6`}>
         <View className="flex-row items-center justify-between py-6">
           <Text className="font-semibold text-lg text-foreground">{title}</Text>
-          <Pressable onPress={onClose}>
+          <Button
+            variant="unstyled"
+            size="content"
+            accessibilityLabel="Fechar"
+            onPress={onClose}
+          >
             <Icon name="x" size={24} className="text-destructive" />
-          </Pressable>
+          </Button>
         </View>
         {children}
       </View>

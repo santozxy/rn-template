@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { TextInput, View } from "react-native";
+import { TextInput } from "react-native";
+import { View } from "@/components/ui/view";
 
 interface OTPInputProps {
   value: string;

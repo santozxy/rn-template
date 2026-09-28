@@ -1,15 +1,17 @@
+import { Button, type ButtonProps } from "@/components/ui/button";
 import { clsx } from "clsx";
 import React from "react";
-import { TouchableOpacity, type TouchableOpacityProps } from "react-native";
 
-interface ItemProps extends TouchableOpacityProps {
+interface ItemProps extends ButtonProps {
   children: React.ReactNode;
   row?: boolean;
 }
 
 export function Item({ children, row = false, ...props }: ItemProps) {
   return (
-    <TouchableOpacity
+    <Button
+      variant="unstyled"
+      size="content"
       {...props}
       activeOpacity={0.7}
       style={[{ flex: 1 }]}
@@ -21,6 +23,6 @@ export function Item({ children, row = false, ...props }: ItemProps) {
       )}
     >
       {children}
-    </TouchableOpacity>
+    </Button>
   );
 }

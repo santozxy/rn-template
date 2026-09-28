@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/hooks/use-theme";
@@ -7,7 +8,8 @@ import { UploadResult } from "@/providers/upload-provider";
 import { logger } from "logger";
 import { useState } from "react";
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { View } from "@/components/ui/view";
 
 export type ControlledDocumentValue = UploadResult & {
   name: string;
@@ -111,7 +113,9 @@ export function ControlledDocument<FormType extends FieldValues>({
               </Text>
             </View>
 
-            <TouchableOpacity
+            <Button
+              variant="unstyled"
+              size="content"
               activeOpacity={0.75}
               disabled={disabled || isPicking}
               onPress={handlePickDocument}
@@ -138,7 +142,7 @@ export function ControlledDocument<FormType extends FieldValues>({
                 {description ??
                   `Toque para selecionar um arquivo ${extensionLabel}`}
               </Text>
-            </TouchableOpacity>
+            </Button>
 
             {error?.message && (
               <Text className="text-sm text-destructive">{error.message}</Text>

@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { logger } from "logger";
 import { Icon as LucideIcon } from "lucide-react-native";
 import { cssInterop } from "nativewind";
@@ -17,6 +18,13 @@ export function initializeNativeWindInterop() {
     className: {
       target: "style",
       nativeStyleToProp: { color: "tintColor" },
+    },
+  });
+
+  cssInterop(Image, {
+    className: {
+      target: "style",
+      nativeStyleToProp: { tintColor: "tintColor" },
     },
   });
 
