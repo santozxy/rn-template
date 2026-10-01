@@ -1,4 +1,4 @@
-export type MaskType = (string | RegExp)[];
+export type MaskType = readonly (string | RegExp)[];
 
 export type MaskObject = {
   [K in MaskKey]: MaskType;
@@ -245,33 +245,54 @@ export const mask = {
   decimalNumber: [/\d/, ".", /\d/, /\d/],
 };
 
-export function applyMask(value: string, mask: MaskType): string {
-  let maskedValue = "";
-  let valueIndex = 0;
+function matchesMaskPattern(value: string, pattern: RegExp): boolean {
+  pattern.lastIndex = 0;
+  const matches = pattern.test(value);
+  pattern.lastIndex = 0;
 
-  for (let i = 0; i < mask.length && valueIndex < value.length; i++) {
-    const maskChar = mask[i];
-    const valueChar = value[valueIndex];
-
-    if (typeof maskChar === "string") {
-      maskedValue += maskChar;
-      if (valueChar === maskChar) {
-        valueIndex++;
-      }
-    } else {
-      if (maskChar.test(valueChar)) {
-        maskedValue += valueChar;
-        valueIndex++;
-      } else {
-        break;
-      }
-    }
-  }
-  return maskedValue;
+  return matches;
 }
 
 export function removeMask(value: string, type?: MaskType): string {
-  return value.replace(/[^\d]/g, "");
+  if (!type) return value.replace(/[^\d]/g, "");
+
+  const patterns = type.filter(
+    (maskItem): maskItem is RegExp => maskItem instanceof RegExp,
+  );
+  let patternIndex = 0;
+  let unmaskedValue = "";
+
+  for (const character of value) {
+    const pattern = patterns[patternIndex];
+
+    if (!pattern) break;
+    if (!matchesMaskPattern(character, pattern)) continue;
+
+    unmaskedValue += character;
+    patternIndex++;
+  }
+
+  return unmaskedValue;
+}
+
+export function applyMask(value: string, mask: MaskType): string {
+  const unmaskedValue = removeMask(value, mask);
+  let maskedValue = "";
+  let valueIndex = 0;
+
+  for (let i = 0; i < mask.length && valueIndex < unmaskedValue.length; i++) {
+    const maskChar = mask[i];
+
+    if (typeof maskChar === "string") {
+      maskedValue += maskChar;
+      continue;
+    }
+
+    maskedValue += unmaskedValue[valueIndex];
+    valueIndex++;
+  }
+
+  return maskedValue;
 }
 
 export function formatPhone(phone?: string | null) {

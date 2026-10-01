@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import { MaskInput } from "@/components/ui/mask-input";
+import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useTheme } from "@/hooks/use-theme";
+import { type MaskType } from "@/utils/masks";
 import React from "react";
 import {
   Control,
@@ -13,7 +14,6 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { ActivityIndicator, ViewProps } from "react-native";
-import { Mask } from "react-native-mask-input";
 
 export interface ControlledSearchInputProps<T extends FieldValues> extends Omit<
   ViewProps,
@@ -24,7 +24,7 @@ export interface ControlledSearchInputProps<T extends FieldValues> extends Omit<
   label?: string;
   rules?: any;
   load?: boolean;
-  mask?: Mask;
+  mask?: MaskType;
   isUppercase?: boolean;
   placeHolder?: string;
   keyboardType?: "default" | "numeric" | "email-address" | "number-pad";
@@ -86,19 +86,19 @@ export function ControlledSearchInput<T extends FieldValues>({
           {rightComponent && <View>{rightComponent}</View>}
         </View>
       </View>
-      <MaskInput
+      <Input
         value={stringValue}
         mask={mask}
         placeholder={placeHolder}
         editable={!disabled}
         keyboardType={keyboardType}
-        focusError={!!error}
-        maxLength={maxLength} // 👈 Repassado para o TextInput nativo bloquear a digitação
+        hasError={Boolean(error)}
+        maxLength={maxLength}
         autoCapitalize={isUppercase ? "characters" : "none"}
-        onChangeText={(masked, unmasked) => {
-          let newValue = unmasked;
+        onChangeText={(text) => {
+          let newValue = text;
           if (isUppercase) {
-            newValue = unmasked.toUpperCase();
+            newValue = text.toUpperCase();
           }
           onChange(newValue);
         }}

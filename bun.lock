@@ -18,6 +18,7 @@
         "date-fns": "^4.4.0",
         "date-fns-tz": "^3.2.0",
         "expo": "~56.0.21",
+        "expo-blur": "~56.0.4",
         "expo-clipboard": "~56.0.4",
         "expo-constants": "56.0.25",
         "expo-crypto": "~56.0.5",
@@ -44,7 +45,6 @@
         "react-native": "0.85.3",
         "react-native-gesture-handler": "~2.31.1",
         "react-native-keyboard-controller": "1.21.6",
-        "react-native-mask-input": "^1.2.3",
         "react-native-mmkv": "^4.3.2",
         "react-native-nitro-modules": "^0.37.1",
         "react-native-reanimated": "4.3.1",
@@ -814,6 +814,8 @@
 
     "expo-asset": ["expo-asset@56.0.24", "", { "dependencies": { "@expo/image-utils": "^0.10.5", "expo-constants": "~56.0.25" }, "peerDependencies": { "expo": "*", "react": "*", "react-native": "*" } }, "sha512-Zy41rl0gtfyZmzV1bzxZype1iEAKz/FiTKOw3yTvA5I2biGnDSh0GbTAYQzkrqYbhnyJAqIe+sXe2eo4DfJ8KQ=="],
 
+    "expo-blur": ["expo-blur@56.0.4", "", { "peerDependencies": { "expo": "*", "react": "*", "react-native": "*" } }, "sha512-/rNpe2NDTmMbSktVJb5z7HoX6apYtq8KVKJNjWOQV7NG01+LvctWzFeMNxWSZVWfIKTndqdqABwqcpYmiCRxxg=="],
+
     "expo-clipboard": ["expo-clipboard@56.0.4", "", { "peerDependencies": { "expo": "*", "react": "*", "react-native": "*" } }, "sha512-qb4DYlkiowHYHaUYVT2FN9nk/nI1xShXOUYsI7J9dVpQCOHcGFjCBPX1VAvEW4Ye4/Aagd6IuhOVAq/+scBOiA=="],
 
     "expo-constants": ["expo-constants@56.0.25", "", { "dependencies": { "@expo/env": "~2.3.1" }, "peerDependencies": { "expo": "*", "react-native": "*" } }, "sha512-KlYOe6F/7lxyedsSrZJHhOjff7goDeJ+tp+e1rK0/ohmt+AxziB3vfyvwcqamC5lRhxJYAgz2CCLAU3Rbb7xUg=="],
@@ -1367,8 +1369,6 @@
     "react-native-is-edge-to-edge": ["react-native-is-edge-to-edge@1.3.1", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-NIXU/iT5+ORyCc7p0z2nnlkouYKX425vuU1OEm6bMMtWWR9yvb+Xg5AZmImTKoF9abxCPqrKC3rOZsKzUYgYZA=="],
 
     "react-native-keyboard-controller": ["react-native-keyboard-controller@1.21.6", "", { "dependencies": { "react-native-is-edge-to-edge": "^1.2.1" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-reanimated": ">=3.0.0" } }, "sha512-nAXCmar/W8Gn4iQV7O5fAVuTh57JszCsqTS+cfR95WFOLR/AfbwfPz/+sWyz/q2SOIe2VpyQzq6hzYiwErhqqw=="],
-
-    "react-native-mask-input": ["react-native-mask-input@1.2.3", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-RWx+gc1EaBslJWR6dsvGdILJ5XvnvZuyEsgJaH9uAMukB3Z9eOlxra1E7Ovck8NSMVcYWpBB/lzojO4LwqqXgA=="],
 
     "react-native-mmkv": ["react-native-mmkv@4.3.2", "", { "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }, "sha512-49OAyfkg0/TMWiWELZN6VuVQPZPhizwL4DTmp8b7B1md3dB/s3LH3mGfC3T+lp9W0y/rqxZMEnotLFTIbOAenQ=="],
 

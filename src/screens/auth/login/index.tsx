@@ -1,9 +1,7 @@
 import { api } from "@/api/config";
-import { images } from "@/assets";
 import { ControlledInput } from "@/components/form/controllers/input";
 import { FormScreen } from "@/components/layout/screens/form";
 import { Button } from "@/components/ui/button";
-import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { login } from "@/domains/auth/requests";
@@ -49,11 +47,17 @@ export function Login() {
         showsVerticalScrollIndicator={false}
       >
         <View className="items-center gap-6">
-          <Image
+          <Text
+            className="mt-10 text-center font-bold text-9xl text-primary"
+            selectable
+          >
+            RN
+          </Text>
+          {/* <Image
             source={images.logo}
             className="h-40 w-80"
             contentFit="contain"
-          />
+          /> */}
           <View className="items-center gap-2">
             <Text className="text-center font-bold text-3xl" selectable>
               Olá, seja bem-vindo(a)

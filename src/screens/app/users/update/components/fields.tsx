@@ -1,5 +1,4 @@
 import { ControlledInput } from "@/components/form/controllers/input";
-import { ControlledMaskInput } from "@/components/form/controllers/input-mask";
 import { ControlledRadioGroup } from "@/components/form/controllers/radio-group";
 import type { UserRole } from "@/domains/auth/types";
 import { mask } from "@/utils/masks";
@@ -49,7 +48,7 @@ export function UpdateUserFields({ disabled }: { disabled: boolean }) {
           },
         }}
       />
-      <ControlledMaskInput
+      <ControlledInput
         control={control}
         name="phone"
         label="Telefone"

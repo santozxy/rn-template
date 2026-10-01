@@ -124,4 +124,37 @@ bun run check
 
 O projeto possui módulos nativos e deve ser executado em development build. O Expo Go não contém todas as dependências necessárias.
 
+## Builds locais
+
+O projeto gera os artefatos diretamente com Gradle e Xcode, sem EAS. Use o wizard para escolher o ambiente da API e o tipo de artefato:
+
+```bash
+bun run build
+```
+
+Também há comandos nativos diretos:
+
+```bash
+bun run build:android:apk
+bun run build:android:aab
+bun run build:ios:archive
+```
+
+O wizard também solicita o tipo de versionamento. Para atualizar versões sem iniciar um build, use:
+
+```bash
+bun run version:patch
+bun run version:minor
+bun run version:major
+bun run version:build
+```
+
+`major`, `minor` e `patch` seguem versionamento semântico. `version:build` mantém a versão pública e incrementa apenas `versionCode` no Android e `CURRENT_PROJECT_VERSION` no iOS. Os comandos mantêm sincronizados `package.json`, `app.json`, `android/app/build.gradle` e o projeto Xcode.
+
+- APK: `android/app/build/outputs/apk/release/`
+- AAB: `android/app/build/outputs/bundle/release/app-release.aab`
+- Archive iOS: `ios/build/rntemplate.xcarchive`
+
+O wizard define `EXPO_PUBLIC_MODE` como `dev`, `demo` ou `prod`. As URLs continuam vindo do `.env`. O build iOS usa a assinatura configurada no projeto Xcode; a exportação do `.ipa` deve ser feita pelo Organizer ou com um `ExportOptions.plist` específico da conta.
+
 # rn-template

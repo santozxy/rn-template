@@ -1,17 +1,21 @@
 import { Button } from "@/components/ui/button";
-// src/components/ui/search.tsx
 import { Icon } from "@/components/ui/icon";
+import { View } from "@/components/ui/view";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useTheme } from "@/hooks/use-theme";
+import { applyMask, removeMask, type MaskType } from "@/utils/masks";
 import React, { useEffect, useRef, useState } from "react";
-import MaskInput from "react-native-mask-input";
-import { View } from "@/components/ui/view";
+import { TextInput } from "react-native";
 
-interface SearchProps extends React.ComponentProps<typeof MaskInput> {
+interface SearchProps extends Omit<
+  React.ComponentProps<typeof TextInput>,
+  "value" | "onChangeText"
+> {
   value: string;
   onChangeText: (text: string) => void;
   debounceDelay?: number;
   loading?: boolean;
+  mask?: MaskType;
 }
 
 export function Search({
@@ -19,7 +23,11 @@ export function Search({
   onChangeText,
   debounceDelay = 400,
   loading = false,
-  ...maskProps
+  mask,
+  maxLength,
+  onFocus,
+  onBlur,
+  ...inputProps
 }: SearchProps) {
   const { colors } = useTheme();
   const [focused, setFocused] = useState(false);
@@ -43,8 +51,8 @@ export function Search({
     setInternalValue(controlledValue);
   }, [controlledValue]);
 
-  const handleChangeText = (masked?: string, unmasked?: string) => {
-    const nextValue = unmasked ?? masked ?? "";
+  const handleChangeText = (text: string) => {
+    const nextValue = mask ? removeMask(text, mask) : text;
     setInternalValue(nextValue);
 
     if (isImmediateMode) {
@@ -62,7 +70,7 @@ export function Search({
   return (
     <View
       className={`h-12 w-full flex-row items-center gap-2 rounded-xl border border-border px-3 ${
-        maskProps.editable === false ? "bg-input-disabled" : "bg-input"
+        inputProps.editable === false ? "bg-input-disabled" : "bg-input"
       } ${focused ? "border-primary" : "border-border"}`}
     >
       {loading && (
@@ -76,15 +84,22 @@ export function Search({
       {!loading && <Icon name="search" size={20} className="text-primary" />}
 
       <View className="flex-1">
-        <MaskInput
-          value={internalValue}
+        <TextInput
+          value={mask ? applyMask(internalValue, mask) : internalValue}
           onChangeText={handleChangeText}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={(event) => {
+            setFocused(true);
+            onFocus?.(event);
+          }}
+          onBlur={(event) => {
+            setFocused(false);
+            onBlur?.(event);
+          }}
           placeholderTextColor={colors.placeholder}
+          maxLength={mask ? (maxLength ?? mask.length) : maxLength}
           className="py-3 font-medium text-foreground"
           autoCapitalize="characters"
-          {...maskProps}
+          {...inputProps}
         />
       </View>
 

@@ -1,6 +1,6 @@
 import { isDemo, isLocal } from "@/api/config";
-import { toastConfig } from "@/lib/toast/config";
 import { initializeNativeWindInterop } from "@/lib/nativewind/config";
+import { toastConfig } from "@/lib/toast/config";
 import { initializeStorage, MMKVStorage } from "@/storage/config";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import React from "react";
