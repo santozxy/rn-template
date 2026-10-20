@@ -12,7 +12,7 @@ Template Expo SDK 56 baseado na infraestrutura do `react-native-template`, com a
 - `useAction`, `usePaginatedList` e `ListPaginated`.
 - TanStack Query com cache persistente e estados offline.
 - Tema claro/escuro, toasts, formulários, máscaras e componentes responsivos.
-- Animação Lottie de inicialização enquanto fontes e cache offline são preparados.
+- Animação Lottie de inicialização enquanto as fontes são preparadas.
 - Providers de autenticação, rede, upload, safe area, gestos, teclado e bottom sheets.
 - Deep links e suporte opcional à abertura de rotas por notificações.
 
@@ -102,6 +102,34 @@ src/
 ```
 
 Arquivos que não representam entradas de tela seguem `kebab-case`. Os formulários de criação e atualização possuem seus próprios `fields` e tipos para poderem evoluir independentemente.
+
+## Persistência por usuário
+
+Dados de negócio locais são isolados por `tenantId + userId`. Cada conta recebe uma instância MMKV criptografada própria, mantida no aparelho mesmo depois do logout. A sessão ativa continua no SecureStore e as preferências realmente globais do aparelho, como o tema, usam o `deviceStorage`.
+
+Dentro de componentes autenticados, use `useUserStorage`:
+
+```tsx
+import { useUserStorage } from "@/hooks/use-user-storage";
+
+const OFFLINE_RECORDS_KEY = "@offline:records:v1";
+
+function Example() {
+  const storage = useUserStorage();
+
+  async function save(records: OfflineRecord[]) {
+    await storage.setItem(OFFLINE_RECORDS_KEY, records);
+  }
+
+  async function load() {
+    return storage.getItem<OfflineRecord[]>(OFFLINE_RECORDS_KEY);
+  }
+}
+```
+
+Para serviços fora do React, receba um `UserStorage` por parâmetro. Isso deixa o repositório testável e impede acesso acidental aos dados de outra conta. Versione as chaves dos dados (`:v1`, `:v2`) quando o formato persistido puder mudar.
+
+O logout não chama `clearAll`: remove apenas token, sessão ativa e cache em memória. `storage.clearAll()` deve ser reservado para uma ação explícita de exclusão dos dados locais daquela conta. O cache persistido do TanStack Query usa a mesma instância do usuário, mas continua sendo cache com prazo de expiração; filas, rascunhos e registros offline duráveis devem ser salvos diretamente no `UserStorage`.
 
 ## Comandos
 

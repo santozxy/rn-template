@@ -7,6 +7,9 @@ const ENCRYPTION_KEY_LENGTH = 32;
 const ENCRYPTION_KEY_ALPHABET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 const SECURE_STORE_KEY_PATTERN = /^[A-Za-z0-9._-]+$/;
+const secureStoreOptions: SecureStore.SecureStoreOptions = {
+  keychainAccessible: SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+};
 
 interface EncryptedStorageConfig {
   storageId: string;
@@ -17,6 +20,7 @@ export interface StringStorage {
   getItem: (key: string) => string | null;
   setItem: (key: string, value: string) => void;
   removeItem: (key: string) => void;
+  clearAll: () => void;
 }
 
 function assertValidSecureStoreKey(key: string) {
@@ -53,22 +57,27 @@ export function createEncryptedStorage({
   const memoryStorage = new Map<string, string>();
 
   async function getEncryptionKey() {
-    const storedKey = await SecureStore.getItemAsync(secureStoreKey);
+    const storedKey = await SecureStore.getItemAsync(
+      secureStoreKey,
+      secureStoreOptions,
+    );
 
     if (storedKey && isValidEncryptionKey(storedKey)) {
       return storedKey;
     }
 
     const encryptionKey = await createEncryptionKey();
-    await SecureStore.setItemAsync(secureStoreKey, encryptionKey);
+    await SecureStore.setItemAsync(
+      secureStoreKey,
+      encryptionKey,
+      secureStoreOptions,
+    );
 
     return encryptionKey;
   }
 
   async function initializeNativeStorage() {
-    if (Platform.OS === "web") {
-      return false;
-    }
+    if (Platform.OS === "web") return false;
 
     const encryptionKey = await getEncryptionKey();
 
@@ -81,9 +90,7 @@ export function createEncryptedStorage({
   }
 
   async function initialize() {
-    if (nativeStorage) {
-      return true;
-    }
+    if (nativeStorage) return true;
 
     initializationPromise ??= initializeNativeStorage().catch((error) => {
       initializationPromise = null;
@@ -110,6 +117,11 @@ export function createEncryptedStorage({
     removeItem(key) {
       nativeStorage?.remove(key);
       memoryStorage.delete(key);
+    },
+
+    clearAll() {
+      nativeStorage?.clearAll();
+      memoryStorage.clear();
     },
   };
 

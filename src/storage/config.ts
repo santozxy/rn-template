@@ -13,7 +13,8 @@ export function initializeStorage(storageImpl: Storage) {
 }
 const MMKVInstance = createMMKV();
 
-export const MMKVStorage: Storage = {
+// Storage do aparelho: use apenas para preferências que não pertencem a um usuário.
+export const deviceStorage: Storage = {
   getItem: (key) => {
     const item = MMKVInstance.getString(key);
     if (item) {

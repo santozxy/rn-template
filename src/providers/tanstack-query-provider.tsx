@@ -15,18 +15,14 @@ import React, { useEffect, useMemo } from "react";
 import { AppState, type AppStateStatus } from "react-native";
 
 export function TanstackQueryProvider({ children }: React.PropsWithChildren) {
-  const { auth, isLoading } = useAuth();
-  const scope = useMemo(
-    () =>
-      auth ? { tenantId: auth.user.tenantId, userId: auth.user.id } : null,
-    [auth],
-  );
+  const { isLoading, userStorage } = useAuth();
+  const scope = userStorage?.scope ?? null;
   const persister = useMemo(
     () =>
-      queryPersistenceConfig.enabled && scope
-        ? createQueryPersister(scope)
+      queryPersistenceConfig.enabled && userStorage
+        ? createQueryPersister(userStorage)
         : null,
-    [scope],
+    [userStorage],
   );
 
   useEffect(() => {
@@ -37,7 +33,7 @@ export function TanstackQueryProvider({ children }: React.PropsWithChildren) {
     return () => subscription.remove();
   }, []);
 
-  if (!persister || !scope || isLoading) {
+  if (!persister || !scope || !userStorage || isLoading) {
     return (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
@@ -45,7 +41,7 @@ export function TanstackQueryProvider({ children }: React.PropsWithChildren) {
 
   return (
     <PersistQueryClientProvider
-      key={`${scope.tenantId ?? "default"}:${scope.userId}`}
+      key={userStorage.scopeKey}
       client={queryClient}
       persistOptions={{
         buster: getQueryCacheBuster(scope),

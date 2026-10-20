@@ -1,7 +1,7 @@
 import { isDemo, isLocal } from "@/api/config";
 import { initializeNativeWindInterop } from "@/lib/nativewind/config";
 import { toastConfig } from "@/lib/toast/config";
-import { initializeStorage, MMKVStorage } from "@/storage/config";
+import { deviceStorage, initializeStorage } from "@/storage/config";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -18,7 +18,7 @@ import { TanstackQueryProvider } from "./tanstack-query-provider";
 import { ThemeProvider } from "./theme-provider";
 import { UploadProvider } from "./upload-provider";
 
-initializeStorage(MMKVStorage);
+initializeStorage(deviceStorage);
 initializeNativeWindInterop();
 
 export function Providers({ children }: React.PropsWithChildren) {
