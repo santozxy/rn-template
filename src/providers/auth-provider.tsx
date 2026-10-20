@@ -32,31 +32,28 @@ interface AuthenticatedSession {
   userStorage: UserStorage;
 }
 
+function createAuthenticatedSession(auth: Auth): AuthenticatedSession {
+  const userStorage = getUserStorage({
+    tenantId: auth.user.tenantId,
+    userId: auth.user.id,
+  });
+
+  return { auth, userStorage };
+}
+
 export function AuthProvider({ children }: React.PropsWithChildren) {
   const [session, setSession] = useState<AuthenticatedSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const auth = session?.auth ?? null;
   const userStorage = session?.userStorage ?? null;
 
-  const createAuthenticatedSession = useCallback(async (nextAuth: Auth) => {
-    const nextUserStorage = await getUserStorage({
-      tenantId: nextAuth.user.tenantId,
-      userId: nextAuth.user.id,
-    });
-
-    return { auth: nextAuth, userStorage: nextUserStorage };
+  const saveAuth = useCallback(async (nextAuth: Auth) => {
+    queryClient.clear();
+    const nextSession = createAuthenticatedSession(nextAuth);
+    updateToken(nextAuth.token);
+    await authStorage.set(nextAuth);
+    setSession(nextSession);
   }, []);
-
-  const saveAuth = useCallback(
-    async (nextAuth: Auth) => {
-      queryClient.clear();
-      const nextSession = await createAuthenticatedSession(nextAuth);
-      updateToken(nextAuth.token);
-      await authStorage.set(nextAuth);
-      setSession(nextSession);
-    },
-    [createAuthenticatedSession],
-  );
 
   const removeAuth = useCallback(async () => {
     removeToken();
@@ -65,25 +62,17 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
     setSession(null);
   }, []);
 
-  const loadStoredSession = useCallback(async () => {
-    const storedAuth = await authStorage.get();
-
-    if (!storedAuth) return null;
-
-    return createAuthenticatedSession(storedAuth);
-  }, [createAuthenticatedSession]);
-
   useEffect(() => {
     let cancelled = false;
 
     const restoreAuth = async () => {
       try {
-        const storedSession = await loadStoredSession();
+        const storedAuth = await authStorage.get();
 
-        if (cancelled || !storedSession) return;
+        if (cancelled || !storedAuth) return;
 
-        updateToken(storedSession.auth.token);
-        setSession(storedSession);
+        updateToken(storedAuth.token);
+        setSession(createAuthenticatedSession(storedAuth));
       } catch (error) {
         logger.error("Não foi possível restaurar a sessão", error);
       } finally {
@@ -96,7 +85,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
     return () => {
       cancelled = true;
     };
-  }, [loadStoredSession]);
+  }, []);
 
   useEffect(() => registerInterceptor(removeAuth), [removeAuth]);
 

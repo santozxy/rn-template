@@ -105,7 +105,7 @@ Arquivos que não representam entradas de tela seguem `kebab-case`. Os formulár
 
 ## Persistência por usuário
 
-Dados de negócio locais são isolados por `tenantId + userId`. Cada conta recebe uma instância MMKV criptografada própria, mantida no aparelho mesmo depois do logout. A sessão ativa continua no SecureStore e as preferências realmente globais do aparelho, como o tema, usam o `deviceStorage`.
+Dados de negócio locais são isolados por `tenantId + userId`. Cada conta recebe uma instância MMKV própria, mantida no aparelho mesmo depois do logout. A sessão ativa continua no SecureStore e as preferências realmente globais do aparelho, como o tema, usam o `deviceStorage`.
 
 Dentro de componentes autenticados, use `useUserStorage`:
 

@@ -49,7 +49,7 @@ export function Routes() {
           status={status}
           hasUnavailableData={hasUnavailableData}
           persistenceAvailable={
-            queryPersistenceConfig.enabled && Boolean(userStorage?.isPersistent)
+            queryPersistenceConfig.enabled && Boolean(userStorage)
           }
         />
       )}
