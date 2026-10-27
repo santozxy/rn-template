@@ -5,13 +5,13 @@ import { OfflineDataUnavailable } from "@/components/ui/offline-data-unavailable
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { getUserById } from "@/domains/users/requests";
-import { useTheme } from "@/hooks/use-theme";
 import { useQuery } from "@/hooks/use-query";
+import { useTheme } from "@/hooks/use-theme";
 import { queryKeys } from "@/lib/tanstack-query/keys";
 import type { AppScreenProps } from "@/routes/types";
 import { formatDate } from "@/utils/date";
 import { formatPhone } from "@/utils/masks";
-import { CircleAlert, SquarePen, UserRound } from "lucide-react-native";
+import { CircleAlert, UserRound } from "lucide-react-native";
 import { UserDetailsLoading } from "./components/loading";
 import { DetailRow } from "./components/row";
 import { DetailSection } from "./components/section";
@@ -62,7 +62,7 @@ export function UserDetails({
           <Text className="text-center text-description">
             Não foi possível carregar os detalhes do usuário.
           </Text>
-          <Button title="Tentar novamente" onPress={() => refetch()} />
+          <Button onPress={() => refetch()}>Tentar novamente</Button>
         </View>
       </ScrollableScreen>
     );
@@ -112,14 +112,15 @@ export function UserDetails({
       </DetailSection>
 
       <Button
-        title="Editar usuário"
-        leftIcon={<SquarePen size={18} color={colors.white} />}
         onPress={() =>
           navigation.navigate("UserUpdate", {
             userId,
           })
         }
-      />
+        className="mt-6"
+      >
+        Editar usuário
+      </Button>
     </ScrollableScreen>
   );
 }

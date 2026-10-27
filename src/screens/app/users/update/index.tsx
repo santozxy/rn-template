@@ -70,11 +70,9 @@ export function UpdateUser({
           <Text className="text-center text-description">
             Não foi possível carregar o usuário.
           </Text>
-          <Button
-            title="Tentar novamente"
-            variant="outline"
-            onPress={() => refetch()}
-          />
+          <Button variant="outline" onPress={() => refetch()}>
+            Tentar novamente
+          </Button>
         </View>
       </Screen>
     );

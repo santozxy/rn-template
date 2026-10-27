@@ -62,11 +62,9 @@ export function Users({ navigation }: AppTabScreenProps<"Users">) {
         <Text className=" text-gray-500 dark:text-gray-400">
           Gerencie os usuários do sistema
         </Text>
-        <Button
-          onPress={() => navigation.navigate("UserCreate")}
-          title="Novo usuário"
-          size="sm"
-        />
+        <Button onPress={() => navigation.navigate("UserCreate")} size="sm">
+          Adicionar
+        </Button>
       </View>
       <ListPaginated
         data={usersQuery.items}

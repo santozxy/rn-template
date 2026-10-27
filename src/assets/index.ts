@@ -7,5 +7,6 @@ export const images = {
 
 export const animations = {
   init: require("./animations/init.json"),
+  construction: require("./animations/construction.json"),
   // Adicione outras animações aqui conforme necessário
 };

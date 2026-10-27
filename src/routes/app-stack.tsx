@@ -1,5 +1,6 @@
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { Settings } from "@/screens/app/settings";
+import { ReportProblems } from "@/screens/app/settings/report-problems";
 import { CreateUser } from "@/screens/app/users/create";
 import { UserDetails } from "@/screens/app/users/details";
 import { UpdateUser } from "@/screens/app/users/update";
@@ -13,6 +14,7 @@ export type AppStackParamList = {
   UserDetails: { userId: string };
   UserUpdate: { userId: string };
   Settings: undefined;
+  ReportProblems: undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<AppStackParamList>();
@@ -37,6 +39,7 @@ export function AppStack() {
         options={{ gestureEnabled: false }}
       />
       <Screen name="Settings" component={Settings} />
+      <Screen name="ReportProblems" component={ReportProblems} />
     </Navigator>
   );
 }
